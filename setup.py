@@ -9,5 +9,6 @@ setup(name='pytm',
       packages=['pytm'],
       description='Skeleton for an Python Tool Manager exercise or tool',
       install_requires=[
-            'Flask==2.0.1'
+          'Flask==2.0.1',
+          'Flask-Cors==3.0.10'
       ])

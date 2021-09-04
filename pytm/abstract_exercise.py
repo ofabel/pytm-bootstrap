@@ -2,6 +2,7 @@ import abc
 
 from flask import Flask
 from flask import jsonify
+from flask_cors import cross_origin
 
 from .output import OutputBuilder as Output
 
@@ -13,11 +14,13 @@ class AbstractExercise(abc.ABC):
         app = Flask(__name__)
 
         @app.get('/')
+        @cross_origin()
         def get():
             question = exercise.get_question()
             return jsonify(question.to_json())
 
         @app.post('/')
+        @cross_origin()
         def post():
             answer = exercise.get_answer()
             return jsonify(answer.to_json())

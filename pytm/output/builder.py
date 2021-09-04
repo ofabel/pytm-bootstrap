@@ -1,6 +1,8 @@
+from typing import Any
 from typing import List
 
 from .abstract import AbstractOutput
+from .dropdown import DropdownOutput
 from .field import FieldOutput
 from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
@@ -40,6 +42,11 @@ class OutputBuilder:
             FieldAttribute.STEP: step
         }))
 
+        return self
+
+    def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
+        self._output.append(DropdownOutput(name, options, value, required))
+        
         return self
 
     def to_json(self) -> List[dict]:
