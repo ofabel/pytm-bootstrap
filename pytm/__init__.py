@@ -1,1 +1,2 @@
-from .exercise import Exercise as Exercise
+from .abstract_exercise import AbstractExercise
+from .output import OutputBuilder as Output
