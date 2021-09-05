@@ -35,10 +35,11 @@ class API:
 
     def handle_upload(self) -> Response:
         data: bytes = Archiver('').create_tar()
-        mimetype: str = 'application/octet-stream'
+        mimetype: str = 'application/tar+gzip'
         b64_encoded_data: str = b64encode(data).decode('utf-8')
         data_uri: str = 'data:%s;base64,%s' % (mimetype, b64_encoded_data)
         return jsonify({
+            'exercise_id': self._exercise.unique_id,
             'data': data_uri
         })
 
