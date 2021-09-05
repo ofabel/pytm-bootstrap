@@ -31,4 +31,6 @@ class ImageOutput(AbstractOutput):
         guessed_type: Optional[str] = guess_type(self._path)[0]
         mimetype: str = guessed_type if guessed_type else 'application/octet-stream'
         with open(self._path, 'rb') as image:
-            return 'data:%s;base64,%s' % (mimetype, b64encode(image.read()).decode('utf-8'))
+            data: bytes = image.read()
+            b64_encoded_data: str = b64encode(data).decode('utf-8')
+            return 'data:%s;base64,%s' % (mimetype, b64_encoded_data)
