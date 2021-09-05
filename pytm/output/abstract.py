@@ -1,11 +1,12 @@
-import abc
+from abc import ABC
+from abc import abstractmethod
 
 
-class AbstractOutput(abc.ABC):
-    @abc.abstractmethod
+class AbstractOutput(ABC):
+    @abstractmethod
     def get_type(self) -> str:
         pass
 
-    @abc.abstractmethod
+    @abstractmethod
     def to_json(self) -> dict:
         pass
