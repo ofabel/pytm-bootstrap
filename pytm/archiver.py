@@ -20,7 +20,7 @@ class Archiver:
     def create_tar(self) -> bytes:
         with TemporaryFile() as temp_archive:
             with open(mode='w|gz', fileobj=temp_archive) as tar:
-                tar.add(name='.', recursive=True, filter=self._filter_tar_member)
+                tar.add(name=self._base_path, recursive=True, filter=self._filter_tar_member)
             temp_archive.seek(0)
             return temp_archive.read()
 

@@ -1,5 +1,6 @@
 from base64 import b64encode
 from typing import TYPE_CHECKING
+from typing import Union
 
 from flask import Blueprint
 from flask import Response
@@ -10,6 +11,7 @@ from .archiver import Archiver
 
 if TYPE_CHECKING:
     from .abstract_exercise import AbstractExercise
+    from .output import OutputBuilder
 
 
 class API:
@@ -26,22 +28,26 @@ class API:
         return self._blueprint
 
     def get_question(self) -> Response:
-        question = self.exercise.get_question()
-        return jsonify(question.to_json())
+        question: 'OutputBuilder' = self.exercise.get_question()
+        question_json: list = question.to_json()
+        json_data = self._wrap_with_envelop(question_json)
+        return jsonify(json_data)
 
     def handle_answer(self) -> Response:
-        answer = self.exercise.get_answer()
-        return jsonify(answer.to_json())
+        answer: 'OutputBuilder' = self.exercise.get_answer()
+        answer_json: list = answer.to_json()
+        json_data = self._wrap_with_envelop(answer_json)
+        return jsonify(json_data)
 
     def handle_upload(self) -> Response:
-        data: bytes = Archiver('').create_tar()
+        data: bytes = Archiver('.').create_tar()
         mimetype: str = 'application/tar+gzip'
         b64_encoded_data: str = b64encode(data).decode('utf-8')
         data_uri: str = 'data:%s;base64,%s' % (mimetype, b64_encoded_data)
-        return jsonify({
-            'exercise_id': self._exercise.unique_id,
-            'data': data_uri
-        })
+
+        json_data: dict = self._wrap_with_envelop(data_uri)
+
+        return jsonify(json_data)
 
     def _create_blueprint(self) -> Blueprint:
         api: Blueprint = Blueprint('api', __name__)
@@ -53,3 +59,9 @@ class API:
         api.add_url_rule('/upload', 'upload', self.handle_upload, True, methods=['GET'])
 
         return api
+
+    def _wrap_with_envelop(self, payload: Union[list, dict, str, int, float]) -> dict:
+        return {
+            'exercise_id': self._exercise.unique_id,
+            'payload': payload
+        }

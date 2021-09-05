@@ -46,14 +46,15 @@ class OutputBuilder:
 
     def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
         self._output.append(DropdownOutput(name, options, value, required))
-        
+
         return self
 
     def to_json(self) -> List[dict]:
-        def to_json(output: AbstractOutput) -> dict:
-            return {
-                **output.to_json(),
-                '_type': output.get_type()
-            }
+        return list(map(self._output_to_json, self._output))
 
-        return list(map(to_json, self._output))
+    @staticmethod
+    def _output_to_json(output: AbstractOutput) -> dict:
+        return {
+            **output.to_json(),
+            '_type': output.get_type()
+        }
