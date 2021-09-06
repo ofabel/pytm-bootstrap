@@ -54,9 +54,9 @@ class API:
 
         CORS(api)
 
-        api.add_url_rule('/question', 'question', self.get_question, True, methods=['GET'])
-        api.add_url_rule('/answer', 'answer', self.handle_answer, True, methods=['POST'])
-        api.add_url_rule('/upload', 'upload', self.handle_upload, True, methods=['GET'])
+        api.add_url_rule('/question', 'question', self.get_question, methods=['GET'])
+        api.add_url_rule('/answer', 'answer', self.handle_answer, methods=['POST'])
+        api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
 
         return api
 
