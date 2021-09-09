@@ -6,7 +6,9 @@ from .field_attribute import FieldAttribute
 
 
 class DropdownOutput(AbstractOutput):
-    def __init__(self, name: str, options: List[Any], value: Any = None, required: bool = False):
+    def __init__(self, index: int, name: str, options: List[Any], value: Any = None, required: bool = False):
+        super().__init__(index)
+
         self._name: str = name
         self._raw_options: List[Any] = options
         self._options: List[str] = list(map(lambda item: str(item), options))
@@ -43,6 +45,7 @@ class DropdownOutput(AbstractOutput):
 
     def to_json(self) -> dict:
         return {
+            **super().to_json(),
             FieldAttribute.NAME: self._name,
             'options': self._options,
             FieldAttribute.VALUE: self._value,

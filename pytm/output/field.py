@@ -7,12 +7,21 @@ from .field_type_enum import FieldType
 
 
 class FieldOutput(AbstractOutput):
-    def __init__(self, field_type: FieldType, name: str, value: Any = None, **attrs: Union[int, str]):
+    def __init__(
+            self,
+            index: int,
+            field_type: FieldType,
+            name: str,
+            value: Union[int, float, str] = None,
+            **attrs: Union[int, float, str]
+    ):
+        super().__init__(index)
+
         self._type: FieldType = field_type
         self._name: str = name
-        self._raw_value: Any = value
+        self._raw_value: Union[int, float, str] = value
         self._value = str(value)
-        self._attributes: Dict[str, Union[int, str]] = attrs
+        self._attributes: Dict[str, Union[int, float, str]] = attrs
 
     @property
     def type(self) -> FieldType:
@@ -40,7 +49,8 @@ class FieldOutput(AbstractOutput):
     def to_json(self) -> dict:
         return {
             **self._attributes,
-            'type': str(self._type),
+            **super().to_json(),
+            'type': self._type,
             'name': self._name,
             'value': self._value
         }

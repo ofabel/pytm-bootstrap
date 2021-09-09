@@ -6,7 +6,9 @@ from .abstract import AbstractOutput
 
 
 class ImageOutput(AbstractOutput):
-    def __init__(self, path: str, description: str = None):
+    def __init__(self, index: int, path: str, description: str = None):
+        super().__init__(index)
+
         self._path: str = path
         self._description: str = description
 
@@ -23,6 +25,7 @@ class ImageOutput(AbstractOutput):
 
     def to_json(self) -> dict:
         return {
+            **super().to_json(),
             'src': self._get_data_url(),
             'description': self._description
         }

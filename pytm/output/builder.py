@@ -14,19 +14,23 @@ class OutputBuilder:
     def __init__(self):
         self._output: list[AbstractOutput] = []
 
+    @property
+    def _index(self):
+        return len(self._output)
+
     def add_paragraph(self, text: str) -> 'OutputBuilder':
-        self._output.append(ParagraphOutput(text))
+        self._output.append(ParagraphOutput(self._index, text))
 
         return self
 
     def add_image(self, path: str, description: str = None) -> 'OutputBuilder':
-        self._output.append(ImageOutput(path, description))
+        self._output.append(ImageOutput(self._index, path, description))
 
         return self
 
     def add_text_field(self, name: str, value: str = None, required: bool = None,
                        max_length: int = None) -> 'OutputBuilder':
-        self._output.append(FieldOutput(FieldType.TEXT, name, value, **{
+        self._output.append(FieldOutput(self._index, FieldType.TEXT, name, value, **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MAX_LENGTH: max_length
         }))
@@ -35,7 +39,7 @@ class OutputBuilder:
 
     def add_number_field(self, name: str, value: float, required: bool = None, min_value: float = None,
                          max_value: float = None, step: float = None) -> 'OutputBuilder':
-        self._output.append(FieldOutput(FieldType.NUMBER, name, str(value), **{
+        self._output.append(FieldOutput(self._index, FieldType.NUMBER, name, str(value), **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MIN: min_value,
             FieldAttribute.MAX: max_value,
@@ -45,7 +49,7 @@ class OutputBuilder:
         return self
 
     def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
-        self._output.append(DropdownOutput(name, options, value, required))
+        self._output.append(DropdownOutput(self._index, name, options, value, required))
 
         return self
 

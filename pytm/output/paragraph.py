@@ -2,7 +2,9 @@ from .abstract import AbstractOutput
 
 
 class ParagraphOutput(AbstractOutput):
-    def __init__(self, text: str):
+    def __init__(self, index: int, text: str):
+        super().__init__(index)
+
         self._text: str = text
 
     @property
@@ -14,5 +16,6 @@ class ParagraphOutput(AbstractOutput):
 
     def to_json(self) -> dict:
         return {
+            **super().to_json(),
             'text': self._text
         }

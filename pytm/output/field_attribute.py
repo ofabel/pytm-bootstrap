@@ -1,4 +1,7 @@
-class FieldAttribute:
+from enum import Enum
+
+
+class FieldAttribute(str, Enum):
     MAX_LENGTH = 'maxlength'
     REQUIRED = 'required'
     MIN = 'min'
