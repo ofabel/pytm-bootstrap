@@ -2,6 +2,7 @@ from typing import Any
 from typing import List
 
 from .abstract import AbstractOutput
+from .button import ButtonOutput
 from .dropdown import DropdownOutput
 from .field import FieldOutput
 from .field_attribute import FieldAttribute
@@ -50,6 +51,11 @@ class OutputBuilder:
 
     def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
         self._output.append(DropdownOutput(self._index, name, options, value, required))
+
+        return self
+
+    def add_button(self, name: str) -> 'OutputBuilder':
+        self._output.append(ButtonOutput(self._index, name))
 
         return self
 
