@@ -10,7 +10,7 @@ from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from .image import ImageOutput
 from .paragraph import ParagraphOutput
-from .serializer import Serializer
+from ..serializer import Serializer
 
 
 class OutputBuilder:

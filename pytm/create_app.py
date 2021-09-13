@@ -1,18 +1,15 @@
 from os import getcwd
 from pathlib import Path
 from typing import Optional
-from typing import TYPE_CHECKING
 
 from flask import Flask
 
 from .api import API
-
-if TYPE_CHECKING:
-    from .abstract_exercise import AbstractExercise
+from .context import Context
 
 
-def create_app(exercise: 'AbstractExercise', static_folder_path: Optional[str]) -> Flask:
-    api: API = API(exercise)
+def create_app(context: Context, static_folder_path: Optional[str]) -> Flask:
+    api: API = API(context)
 
     static_folder: str = static_folder_path if static_folder_path else Path(getcwd()).joinpath('static')
 

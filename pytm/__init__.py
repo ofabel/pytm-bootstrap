@@ -1,3 +1,3 @@
 from .abstract_exercise import AbstractExercise
 from .output import OutputBuilder as Output
-from .output import Serializer
+from .serializer import Serializer

@@ -13,33 +13,33 @@ from flask import request
 from flask_cors import CORS
 
 from .archiver import Archiver
+from .context import Context
 
 if TYPE_CHECKING:
-    from .abstract_exercise import AbstractExercise
     from .output import OutputBuilder
 
 
 class API:
-    def __init__(self, exercise: 'AbstractExercise'):
-        self._exercise: 'AbstractExercise' = exercise
+    def __init__(self, context: Context):
+        self._context: Context = context
         self._blueprint: Blueprint = self._create_blueprint()
 
     @property
-    def exercise(self) -> 'AbstractExercise':
-        return self._exercise
+    def context(self) -> Context:
+        return self._context
 
     @property
     def blueprint(self) -> Blueprint:
         return self._blueprint
 
     def handle_start(self) -> Response:
-        result: 'OutputBuilder' = self.exercise.start()
+        result: 'OutputBuilder' = self.context.exercise.start()
         json: list = result.to_json()
         envelop = self._wrap_with_envelop(json)
         return jsonify(envelop)
 
     def handle_action(self, action: str) -> Response:
-        method: Callable[..., 'OutputBuilder'] = getattr(self.exercise, action, None)
+        method: Callable[..., 'OutputBuilder'] = getattr(self.context.exercise, action, None)
         payload: dict = request.json
         result: 'OutputBuilder' = self._call_action(method, payload)
         json: list = result.to_json()
@@ -69,7 +69,7 @@ class API:
 
     def _wrap_with_envelop(self, payload: Union[list, dict, str, int, float]) -> dict:
         return {
-            'exercise_id': self._exercise.unique_id,
+            'exercise_id': self.context.unique_id,
             'payload': payload
         }
 
@@ -83,7 +83,8 @@ class API:
 
         return method(**arguments)
 
-    def _apply_argument(self, parameter: Parameter, arguments: dict, available_arguments: dict):
+    @staticmethod
+    def _apply_argument(parameter: Parameter, arguments: dict, available_arguments: dict):
         name: str = parameter.name
         is_positional_or_keyword: bool = parameter.kind is Parameter.POSITIONAL_OR_KEYWORD
         is_empty_default: bool = parameter.default is Parameter.empty

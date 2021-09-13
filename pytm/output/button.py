@@ -1,5 +1,5 @@
 from .abstract import AbstractOutput
-from .serializer import Serializer
+from ..serializer import Serializer
 
 
 class ButtonOutput(AbstractOutput):
