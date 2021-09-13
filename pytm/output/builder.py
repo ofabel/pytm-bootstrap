@@ -1,4 +1,5 @@
 from typing import Any
+from typing import Callable
 from typing import List
 
 from .abstract import AbstractOutput
@@ -20,42 +21,113 @@ class OutputBuilder:
         return len(self._output)
 
     def add_paragraph(self, text: str) -> 'OutputBuilder':
-        self._output.append(ParagraphOutput(self._index, text))
+        """Add a paragraph to the output. Can be used for normal text output.
+
+        :param text: The text to print.
+        :return: The current output builder instance.
+        """
+        paragraph: ParagraphOutput = ParagraphOutput(self._index, text)
+
+        self._output.append(paragraph)
 
         return self
 
     def add_image(self, path: str, description: str = None) -> 'OutputBuilder':
-        self._output.append(ImageOutput(self._index, path, description))
+        """Add an image to the output. The path can either be absolute or relative to the working directory,
+        which is normally the project root folder.
+
+        :param path: The path to the image.
+        :param description: An optional description of the image.
+        :return: The current output builder instance.
+        """
+        image: ImageOutput = ImageOutput(self._index, path, description)
+
+        self._output.append(image)
 
         return self
 
-    def add_text_field(self, name: str, value: str = None, required: bool = None,
-                       max_length: int = None) -> 'OutputBuilder':
-        self._output.append(FieldOutput(self._index, FieldType.TEXT, name, value, **{
+    def add_text_field(
+            self,
+            name: str,
+            value: str = None,
+            required: bool = None,
+            max_length: int = None
+    ) -> 'OutputBuilder':
+        """Add a text input field. The input will be handled as string.
+        Use :meth:`add_number_field` to add a numeric input field.
+
+        :param name: The name of the text field, should be unique.
+        :param value: The default value to display.
+        :param required: Mark the field as required.
+        :param max_length: The maximum length of this text field.
+        :return: The current output builder instance.
+        """
+        field: FieldOutput = FieldOutput(self._index, FieldType.TEXT, name, value, **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MAX_LENGTH: max_length
-        }))
+        })
+
+        self._output.append(field)
 
         return self
 
-    def add_number_field(self, name: str, value: float, required: bool = None, min_value: float = None,
-                         max_value: float = None, step: float = None) -> 'OutputBuilder':
-        self._output.append(FieldOutput(self._index, FieldType.NUMBER, name, str(value), **{
+    def add_number_field(
+            self,
+            name: str,
+            value: float,
+            required: bool = None,
+            min_value: float = None,
+            max_value: float = None,
+            step: float = None
+    ) -> 'OutputBuilder':
+        """Add a numeric input field. The input will be handled as float.
+        Use :meth:`add_text_field` to add a text input field.
+
+        :param name: The name of the input field, should be unique.
+        :param value: The default value to display.
+        :param required: Mark the field as required.
+        :param min_value: The minimum value to accept.
+        :param max_value: The maximum value to accept.
+        :param step: The granularity of the input.
+        :return: The current output builder instance.
+        """
+        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, str(value), **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MIN: min_value,
             FieldAttribute.MAX: max_value,
             FieldAttribute.STEP: step
-        }))
+        })
+
+        self._output.append(field)
 
         return self
 
     def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
-        self._output.append(DropdownOutput(self._index, name, options, value, required))
+        """Add a dropdown field. The user can choose between the provided options.
+
+        :param name: The name of the input field, should be unique.
+        :param options: A list of available options to choose from.
+        :param value: The default value to display.
+        :param required: Mark the field as required.
+        :return: The current output builder instance.
+        """
+        dropdown: DropdownOutput = DropdownOutput(self._index, name, options, value, required)
+
+        self._output.append(dropdown)
 
         return self
 
-    def add_button(self, name: str) -> 'OutputBuilder':
-        self._output.append(ButtonOutput(self._index, name))
+    def add_action(self, title: str, action: Callable[..., 'OutputBuilder']) -> 'OutputBuilder':
+        """Add an action button. Creates a button, if the user clicks on it, he will be redirected to the specified
+        action. The action should be a method reference to another action in the exercise class.
+
+        :param title: The title for the button, e.g. Submit.
+        :param action: A method reference to the next action.
+        :return: The current output builder instance.
+        """
+        button: ButtonOutput = ButtonOutput(self._index, title, action.__name__)
+
+        self._output.append(button)
 
         return self
 

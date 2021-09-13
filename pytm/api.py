@@ -27,17 +27,18 @@ class API:
     def blueprint(self) -> Blueprint:
         return self._blueprint
 
-    def get_question(self) -> Response:
-        question: 'OutputBuilder' = self.exercise.get_question()
-        question_json: list = question.to_json()
-        json_data = self._wrap_with_envelop(question_json)
-        return jsonify(json_data)
+    def handle_start(self) -> Response:
+        result: 'OutputBuilder' = self.exercise.start()
+        json: list = result.to_json()
+        envelop = self._wrap_with_envelop(json)
+        return jsonify(envelop)
 
-    def handle_answer(self) -> Response:
-        answer: 'OutputBuilder' = self.exercise.get_answer()
-        answer_json: list = answer.to_json()
-        json_data = self._wrap_with_envelop(answer_json)
-        return jsonify(json_data)
+    def handle_action(self, action: str) -> Response:
+        method: callable = getattr(self.exercise, action, None)
+        result: 'OutputBuilder' = method()
+        json: list = result.to_json()
+        envelop = self._wrap_with_envelop(json)
+        return jsonify(envelop)
 
     def handle_upload(self) -> Response:
         data: bytes = Archiver('.').create_tar()
@@ -54,8 +55,8 @@ class API:
 
         CORS(api)
 
-        api.add_url_rule('/question', 'question', self.get_question, methods=['GET'])
-        api.add_url_rule('/answer', 'answer', self.handle_answer, methods=['POST'])
+        api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
+        api.add_url_rule('/call/{action}', 'call', self.handle_action, methods=['POST'])
         api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
 
         return api

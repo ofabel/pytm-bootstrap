@@ -16,9 +16,5 @@ class AbstractExercise(abc.ABC):
         return self._unique_id
 
     @abc.abstractmethod
-    def get_question(self) -> Output:
-        pass
-
-    @abc.abstractmethod
-    def get_answer(self) -> Output:
+    def start(self) -> Output:
         pass
