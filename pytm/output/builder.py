@@ -10,10 +10,12 @@ from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from .image import ImageOutput
 from .paragraph import ParagraphOutput
+from .serializer import Serializer
 
 
 class OutputBuilder:
-    def __init__(self):
+    def __init__(self, serializer: Serializer):
+        self._serializer: Serializer = serializer
         self._output: list[AbstractOutput] = []
 
     @property
@@ -117,15 +119,16 @@ class OutputBuilder:
 
         return self
 
-    def add_action(self, title: str, action: Callable[..., 'OutputBuilder']) -> 'OutputBuilder':
+    def add_action(self, title: str, action: Callable[..., 'OutputBuilder'], **kwargs) -> 'OutputBuilder':
         """Add an action button. Creates a button, if the user clicks on it, he will be redirected to the specified
         action. The action should be a method reference to another action in the exercise class.
 
         :param title: The title for the button, e.g. Submit.
         :param action: A method reference to the next action.
+        :param kwargs: Additional arguments to pass to the action method.
         :return: The current output builder instance.
         """
-        button: ButtonOutput = ButtonOutput(self._index, title, action.__name__)
+        button: ButtonOutput = ButtonOutput(self._index, self._serializer, title, action.__name__, kwargs)
 
         self._output.append(button)
 
