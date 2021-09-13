@@ -1,10 +1,15 @@
 from base64 import b64encode
+from inspect import Parameter
+from inspect import Signature
+from inspect import signature
+from typing import Callable
 from typing import TYPE_CHECKING
 from typing import Union
 
 from flask import Blueprint
 from flask import Response
 from flask import jsonify
+from flask import request
 from flask_cors import CORS
 
 from .archiver import Archiver
@@ -34,8 +39,9 @@ class API:
         return jsonify(envelop)
 
     def handle_action(self, action: str) -> Response:
-        method: callable = getattr(self.exercise, action, None)
-        result: 'OutputBuilder' = method()
+        method: Callable[..., 'OutputBuilder'] = getattr(self.exercise, action, None)
+        payload: dict = request.json
+        result: 'OutputBuilder' = self._call_action(method, payload)
         json: list = result.to_json()
         envelop = self._wrap_with_envelop(json)
         return jsonify(envelop)
@@ -56,7 +62,7 @@ class API:
         CORS(api)
 
         api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
-        api.add_url_rule('/call/{action}', 'call', self.handle_action, methods=['POST'])
+        api.add_url_rule('/call/<action>', 'call', self.handle_action, methods=['POST'])
         api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
 
         return api
@@ -66,3 +72,34 @@ class API:
             'exercise_id': self._exercise.unique_id,
             'payload': payload
         }
+
+    def _call_action(self, method: Callable[..., 'OutputBuilder'], available_arguments: dict) -> 'OutputBuilder':
+        method_signature: Signature = signature(method)
+        arguments: dict = {}
+
+        for key in method_signature.parameters.keys():
+            parameter: Parameter = method_signature.parameters[key]
+            self._apply_argument(parameter, arguments, available_arguments)
+
+        return method(**arguments)
+
+    def _apply_argument(self, parameter: Parameter, arguments: dict, available_arguments: dict):
+        name: str = parameter.name
+        is_positional_or_keyword: bool = parameter.kind is Parameter.POSITIONAL_OR_KEYWORD
+        is_empty_default: bool = parameter.default is Parameter.empty
+        is_argument_available: bool = name in available_arguments
+
+        # ignore not present arguments with default value
+        if is_positional_or_keyword and not is_empty_default and not is_argument_available:
+            return
+
+        # raise error on required arguments
+        if is_positional_or_keyword and is_empty_default and not is_argument_available:
+            raise RuntimeError('parameter %s is not available' % name)
+
+        # apply standard arguments
+        if parameter.kind == Parameter.POSITIONAL_OR_KEYWORD:
+            arguments[name] = available_arguments.pop(name)
+        # apply kwargs
+        elif parameter.kind == Parameter.VAR_KEYWORD:
+            arguments.update(**available_arguments)
