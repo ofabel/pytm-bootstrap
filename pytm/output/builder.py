@@ -9,6 +9,7 @@ from .field import FieldOutput
 from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from .image import ImageOutput
+from .latex import LatexOutput
 from .paragraph import ParagraphOutput
 from ..serializer import Serializer
 
@@ -31,6 +32,18 @@ class OutputBuilder:
         paragraph: ParagraphOutput = ParagraphOutput(self._index, text)
 
         self._output.append(paragraph)
+
+        return self
+
+    def add_latex(self, text: str) -> 'OutputBuilder':
+        """Add LaTeX to the output.
+
+        :param text: The text to print.
+        :return: The current output builder instance.
+        """
+        latex: LatexOutput = LatexOutput(self._index, text)
+
+        self._output.append(latex)
 
         return self
 
