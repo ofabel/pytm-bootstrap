@@ -14,6 +14,7 @@ from flask_cors import CORS
 
 from .archiver import Archiver
 from .context import Context
+from .output.button import ButtonOutput
 
 if TYPE_CHECKING:
     from .output import OutputBuilder
@@ -40,11 +41,11 @@ class API:
 
     def handle_action(self, action: str) -> Response:
         method: Callable[..., 'OutputBuilder'] = getattr(self.context.exercise, action, None)
-        payload: dict = request.json
-        result: 'OutputBuilder' = self._call_action(method, payload)
+        envelop_in: dict = request.json
+        result: 'OutputBuilder' = self._call_action(method, envelop_in)
         json: list = result.to_json()
-        envelop = self._wrap_with_envelop(json)
-        return jsonify(envelop)
+        envelop_out: dict = self._wrap_with_envelop(json)
+        return jsonify(envelop_out)
 
     def handle_upload(self) -> Response:
         data: bytes = Archiver('.').create_tar()
@@ -73,15 +74,24 @@ class API:
             'payload': payload
         }
 
-    def _call_action(self, method: Callable[..., 'OutputBuilder'], available_arguments: dict) -> 'OutputBuilder':
+    def _call_action(self, method: Callable[..., 'OutputBuilder'], envelop: dict) -> 'OutputBuilder':
         method_signature: Signature = signature(method)
+        available_arguments: dict = envelop.pop('payload')
+        additional_parameters: dict = self._get_additional_parameters(envelop)
         arguments: dict = {}
 
         for key in method_signature.parameters.keys():
             parameter: Parameter = method_signature.parameters[key]
             self._apply_argument(parameter, arguments, available_arguments)
 
-        return method(**arguments)
+        return method(**arguments, **additional_parameters)
+
+    def _get_additional_parameters(self, envelop: dict) -> dict:
+        additional_parameters: dict = envelop.pop(ButtonOutput.PARAMETERS_FIELD)
+        parameters_signature: str = additional_parameters.pop(ButtonOutput.SIGNATURE_FIELD)
+        encoded_parameters: str = additional_parameters.pop(ButtonOutput.DATA_FIELD)
+
+        return self._context.serializer.deserialize(parameters_signature, encoded_parameters)
 
     @staticmethod
     def _apply_argument(parameter: Parameter, arguments: dict, available_arguments: dict):

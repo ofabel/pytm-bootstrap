@@ -20,11 +20,13 @@ class Serializer:
         return signature.decode('utf-8'), data_b64.decode('utf-8')
 
     def deserialize(self, signature: str, data: str) -> dict:
-        data_decoded: bytes = b64decode(data, None, True)
+        data_as_bytes: bytes = bytes(data, 'utf-8')
         signature_as_bytes: bytes = bytes(signature, 'utf-8')
 
-        if not self._check_signature(signature_as_bytes, data_decoded):
+        if not self._check_signature(signature_as_bytes, data_as_bytes):
             raise RuntimeError('signature does not match')
+
+        data_decoded: bytes = b64decode(data_as_bytes, None, True)
 
         return loads(data_decoded)
 
@@ -35,6 +37,5 @@ class Serializer:
 
     def _check_signature(self, signature: bytes, data: bytes) -> bool:
         signature_to_compare: bytes = self._sign_data(data)
-        decoded_signature: bytes = b64decode(signature)
 
-        return compare_digest(decoded_signature, signature_to_compare)
+        return compare_digest(signature, signature_to_compare)
