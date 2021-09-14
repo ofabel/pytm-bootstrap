@@ -126,10 +126,11 @@ class OutputBuilder:
     def add_option_group(
             self,
             name: str,
-            label: Union[str, Latex],
+            label: Union[str, Latex, None],
             options: List[Union[Option, str, int, float]],
             value: Any = None,
-            required: bool = False
+            required: bool = False,
+            inline: bool = False
     ) -> 'OutputBuilder':
         """Add a dropdown field. The user can choose between the provided options.
 
@@ -138,9 +139,10 @@ class OutputBuilder:
         :param options: A list of available options to choose from.
         :param value: The default value to display.
         :param required: Mark the field as required.
+        :param inline: Display the options inline.
         :return: The current output builder instance.
         """
-        option_group: OptionGroupOutput = OptionGroupOutput(self._index, name, label, options, value, required)
+        option_group: OptionGroupOutput = OptionGroupOutput(self._index, name, label, options, value, required, inline)
 
         self._output.append(option_group)
 

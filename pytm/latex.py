@@ -15,5 +15,5 @@ class Latex:
         }
 
     @staticmethod
-    def marshal(text: Union[str, 'Latex']) -> Union[str, dict]:
-        return text if isinstance(text, str) else text.to_json()
+    def marshal(text: Union[str, 'Latex']) -> Union[str, dict, None]:
+        return text if isinstance(text, str) or text is None else text.to_json()
