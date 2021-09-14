@@ -1,5 +1,4 @@
 from typing import List
-from typing import Optional
 from typing import Union
 
 from .abstract import AbstractOutput
@@ -14,19 +13,19 @@ class OptionGroupOutput(AbstractOutput):
             index: int,
             name: str,
             label: Union[str, Latex, None],
-            options: List[Union[Option, str, int, float]],
-            value: Union[str, int, float] = None,
+            options: List[Union[Option, str, int, float, bool]],
             required: bool = True,
-            inline: bool = True
+            inline: bool = True,
+            multiple: bool = False
     ):
         super().__init__(index)
 
         self._name: str = name
         self._label: Union[str, Latex, None] = label
         self._options: List[Option] = [] if options is None else map(self._normalize_option, options)
-        self._value: Optional[Union[str, int, float]] = value
         self._required: bool = required
         self._inline: bool = inline
+        self._multiple: bool = multiple
 
     @property
     def name(self) -> str:
@@ -41,16 +40,16 @@ class OptionGroupOutput(AbstractOutput):
         return self._options
 
     @property
-    def value(self) -> Optional[Union[str, int, float]]:
-        return self._value
-
-    @property
     def inline(self) -> bool:
         return self._inline
 
     @property
     def required(self) -> bool:
         return self._required
+
+    @property
+    def multiple(self) -> bool:
+        return self._multiple
 
     def get_type(self) -> str:
         return 'option-group'
@@ -62,10 +61,10 @@ class OptionGroupOutput(AbstractOutput):
             'label': Latex.marshal(self._label),
             'options': list(map(lambda option: option.to_json(), self._options)),
             'inline': self._inline,
-            FieldAttribute.VALUE: self._value,
+            'multiple': self._multiple,
             FieldAttribute.REQUIRED: self._required
         }
 
     @staticmethod
-    def _normalize_option(option: Union[Option, str, int, float]) -> Option:
-        return option if isinstance(option, Option) else Option(option, str(option))
+    def _normalize_option(option: Union[Option, str, int, float, bool]) -> Option:
+        return option if isinstance(option, Option) else Option(option)

@@ -10,3 +10,4 @@ class FieldAttribute(str, Enum):
     NAME = 'name'
     VALUE = 'value'
     TYPE = 'type'
+    CHECKED = 'checked'

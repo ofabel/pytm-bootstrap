@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Callable
 from typing import List
 from typing import Union
@@ -128,23 +127,58 @@ class OutputBuilder:
             name: str,
             label: Union[str, Latex, None],
             options: List[Union[Option, str, int, float]],
-            value: Any = None,
             required: bool = True,
-            inline: bool = False
+            inline: bool = True
     ) -> 'OutputBuilder':
-        """Add a dropdown field. The user can choose between the provided options.
+        """Add a radio fields. The user can choose between the provided options.
 
         :param name: The name of the input field, should be unique.
         :param label: The label for the input field, should be unique.
         :param options: A list of available options to choose from.
-        :param value: The default value to display.
         :param required: Mark the field as required.
         :param inline: Display the options inline.
         :return: The current output builder instance.
         """
-        option_group: OptionGroupOutput = OptionGroupOutput(self._index, name, label, options, value, required, inline)
+        option_group: OptionGroupOutput = OptionGroupOutput(
+            self._index,
+            name,
+            label,
+            options,
+            required,
+            inline,
+            False)
 
         self._output.append(option_group)
+
+        return self
+
+    def add_selection_group(
+            self,
+            name: str,
+            label: Union[str, Latex, None],
+            options: List[Union[Option, str, int, float, bool]],
+            required: bool = True,
+            inline: bool = True
+    ) -> 'OutputBuilder':
+        """Add a checkbox fields. The user can choose multiple values from the provided options.
+
+        :param name: The name of the input field, should be unique.
+        :param label: The label for the input field, should be unique.
+        :param options: A list of available options to choose from.
+        :param required: Mark the field as required.
+        :param inline: Display the options inline.
+        :return: The current output builder instance.
+        """
+        selection_group: OptionGroupOutput = OptionGroupOutput(
+            self._index,
+            name,
+            label,
+            options,
+            required,
+            inline,
+            True)
+
+        self._output.append(selection_group)
 
         return self
 
