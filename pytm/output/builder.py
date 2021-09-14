@@ -68,7 +68,7 @@ class OutputBuilder:
             name: str,
             label: Union[str, Latex],
             value: str = None,
-            required: bool = None,
+            required: bool = True,
             max_length: int = None
     ) -> 'OutputBuilder':
         """Add a text input field. The input will be handled as string.
@@ -95,7 +95,7 @@ class OutputBuilder:
             name: str,
             label: Union[str, Latex],
             value: float,
-            required: bool = None,
+            required: bool = True,
             min_value: float = None,
             max_value: float = None,
             step: float = None
@@ -129,7 +129,7 @@ class OutputBuilder:
             label: Union[str, Latex, None],
             options: List[Union[Option, str, int, float]],
             value: Any = None,
-            required: bool = False,
+            required: bool = True,
             inline: bool = False
     ) -> 'OutputBuilder':
         """Add a dropdown field. The user can choose between the provided options.

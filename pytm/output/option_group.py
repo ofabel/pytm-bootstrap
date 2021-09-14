@@ -16,7 +16,7 @@ class OptionGroupOutput(AbstractOutput):
             label: Union[str, Latex, None],
             options: List[Union[Option, str, int, float]],
             value: Union[str, int, float] = None,
-            required: bool = False,
+            required: bool = True,
             inline: bool = True
     ):
         super().__init__(index)
