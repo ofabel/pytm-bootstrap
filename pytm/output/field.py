@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Dict
 from typing import Union
 
@@ -14,7 +13,7 @@ class FieldOutput(AbstractOutput):
             field_type: FieldType,
             name: str,
             label: Union[str, Latex],
-            value: Union[int, float, str] = None,
+            value: Union[int, float, str, None] = None,
             **attrs: Union[int, float, str]
     ):
         super().__init__(index)
@@ -22,8 +21,7 @@ class FieldOutput(AbstractOutput):
         self._type: FieldType = field_type
         self._name: str = name
         self._label: Union[str, Latex] = label
-        self._raw_value: Union[int, float, str] = value
-        self._value = str(value)
+        self._value: Union[int, float, str, None] = value
         self._attributes: Dict[str, Union[int, float, str]] = attrs
 
     @property
@@ -39,11 +37,7 @@ class FieldOutput(AbstractOutput):
         return self._label
 
     @property
-    def raw_value(self) -> Any:
-        return self._raw_value
-
-    @property
-    def value(self) -> str:
+    def value(self) -> Union[int, float, str, None]:
         return self._value
 
     @property

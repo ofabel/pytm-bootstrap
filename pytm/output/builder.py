@@ -94,7 +94,7 @@ class OutputBuilder:
             self,
             name: str,
             label: Union[str, Latex],
-            value: float,
+            value: float = None,
             required: bool = True,
             min_value: float = None,
             max_value: float = None,
@@ -112,7 +112,7 @@ class OutputBuilder:
         :param step: The granularity of the input.
         :return: The current output builder instance.
         """
-        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, label, str(value), **{
+        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, label, value, **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MIN: min_value,
             FieldAttribute.MAX: max_value,
