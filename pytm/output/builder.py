@@ -1,6 +1,7 @@
 from typing import Any
 from typing import Callable
 from typing import List
+from typing import Union
 
 from .abstract import AbstractOutput
 from .button import ButtonOutput
@@ -9,8 +10,8 @@ from .field import FieldOutput
 from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from .image import ImageOutput
-from .latex import LatexOutput
 from .paragraph import ParagraphOutput
+from ..latex import Latex
 from ..serializer import Serializer
 
 
@@ -23,7 +24,7 @@ class OutputBuilder:
     def _index(self):
         return len(self._output)
 
-    def add_paragraph(self, text: str) -> 'OutputBuilder':
+    def add_paragraph(self, text: Union[str, Latex]) -> 'OutputBuilder':
         """Add a paragraph to the output. Can be used for normal text output.
 
         :param text: The text to print.
@@ -41,9 +42,9 @@ class OutputBuilder:
         :param text: The text to print.
         :return: The current output builder instance.
         """
-        latex: LatexOutput = LatexOutput(self._index, text)
+        paragraph: ParagraphOutput = ParagraphOutput(self._index, Latex(text))
 
-        self._output.append(latex)
+        self._output.append(paragraph)
 
         return self
 
@@ -64,6 +65,7 @@ class OutputBuilder:
     def add_text_field(
             self,
             name: str,
+            label: Union[str, Latex],
             value: str = None,
             required: bool = None,
             max_length: int = None
@@ -72,12 +74,13 @@ class OutputBuilder:
         Use :meth:`add_number_field` to add a numeric input field.
 
         :param name: The name of the text field, should be unique.
+        :param label: The label for the text field.
         :param value: The default value to display.
         :param required: Mark the field as required.
         :param max_length: The maximum length of this text field.
         :return: The current output builder instance.
         """
-        field: FieldOutput = FieldOutput(self._index, FieldType.TEXT, name, value, **{
+        field: FieldOutput = FieldOutput(self._index, FieldType.TEXT, name, label, value, **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MAX_LENGTH: max_length
         })
@@ -89,6 +92,7 @@ class OutputBuilder:
     def add_number_field(
             self,
             name: str,
+            label: Union[str, Latex],
             value: float,
             required: bool = None,
             min_value: float = None,
@@ -99,6 +103,7 @@ class OutputBuilder:
         Use :meth:`add_text_field` to add a text input field.
 
         :param name: The name of the input field, should be unique.
+        :param label: The label for the input field.
         :param value: The default value to display.
         :param required: Mark the field as required.
         :param min_value: The minimum value to accept.
@@ -106,7 +111,7 @@ class OutputBuilder:
         :param step: The granularity of the input.
         :return: The current output builder instance.
         """
-        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, str(value), **{
+        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, label, str(value), **{
             FieldAttribute.REQUIRED: required,
             FieldAttribute.MIN: min_value,
             FieldAttribute.MAX: max_value,

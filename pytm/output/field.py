@@ -4,6 +4,7 @@ from typing import Union
 
 from .abstract import AbstractOutput
 from .field_type_enum import FieldType
+from ..latex import Latex
 
 
 class FieldOutput(AbstractOutput):
@@ -12,6 +13,7 @@ class FieldOutput(AbstractOutput):
             index: int,
             field_type: FieldType,
             name: str,
+            label: Union[str, Latex],
             value: Union[int, float, str] = None,
             **attrs: Union[int, float, str]
     ):
@@ -19,6 +21,7 @@ class FieldOutput(AbstractOutput):
 
         self._type: FieldType = field_type
         self._name: str = name
+        self._label: Union[str, Latex] = label
         self._raw_value: Union[int, float, str] = value
         self._value = str(value)
         self._attributes: Dict[str, Union[int, float, str]] = attrs
@@ -30,6 +33,10 @@ class FieldOutput(AbstractOutput):
     @property
     def name(self) -> str:
         return self._name
+
+    @property
+    def label(self) -> Union[str, Latex]:
+        return self._label
 
     @property
     def raw_value(self) -> Any:
@@ -52,5 +59,6 @@ class FieldOutput(AbstractOutput):
             **super().to_json(),
             'type': self._type,
             'name': self._name,
+            'label': self._label if isinstance(self._label, str) else self._label.to_json(),
             'value': self._value
         }

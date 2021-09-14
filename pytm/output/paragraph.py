@@ -1,14 +1,17 @@
+from typing import Union
+
 from .abstract import AbstractOutput
+from ..latex import Latex
 
 
 class ParagraphOutput(AbstractOutput):
-    def __init__(self, index: int, text: str):
+    def __init__(self, index: int, text: Union[str, Latex]):
         super().__init__(index)
 
-        self._text: str = text
+        self._text: Union[str, Latex] = text
 
     @property
-    def text(self) -> str:
+    def text(self) -> Union[str, Latex]:
         return self._text
 
     def get_type(self) -> str:
@@ -17,5 +20,5 @@ class ParagraphOutput(AbstractOutput):
     def to_json(self) -> dict:
         return {
             **super().to_json(),
-            'text': self._text
+            'text': self._text if isinstance(self._text, str) else self._text.to_json()
         }
