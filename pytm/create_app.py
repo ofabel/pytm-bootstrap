@@ -19,6 +19,6 @@ def create_app(context: Context, static_folder_path: Optional[str]) -> Flask:
                 static_url_path='/static')
 
     app.register_blueprint(api.blueprint, url_prefix='/api/v1')
-    app.register_error_handler(Exception, lambda error: handle_error(app.log_exception, error))
+    app.register_error_handler(Exception, lambda error: handle_error(app.logger, error))
 
     return app
