@@ -20,5 +20,5 @@ class ParagraphOutput(AbstractOutput):
     def to_json(self) -> dict:
         return {
             **super().to_json(),
-            'text': self._text if isinstance(self._text, str) else self._text.to_json()
+            'text': Latex.marshal(self._text)
         }

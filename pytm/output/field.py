@@ -59,6 +59,6 @@ class FieldOutput(AbstractOutput):
             **super().to_json(),
             'type': self._type,
             'name': self._name,
-            'label': self._label if isinstance(self._label, str) else self._label.to_json(),
+            'label': Latex.marshal(self._label),
             'value': self._value
         }

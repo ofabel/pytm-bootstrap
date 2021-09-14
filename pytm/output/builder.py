@@ -5,11 +5,12 @@ from typing import Union
 
 from .abstract import AbstractOutput
 from .button import ButtonOutput
-from .dropdown import DropdownOutput
 from .field import FieldOutput
 from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from .image import ImageOutput
+from .option import Option
+from .option_group import OptionGroupOutput
 from .paragraph import ParagraphOutput
 from ..latex import Latex
 from ..serializer import Serializer
@@ -122,18 +123,26 @@ class OutputBuilder:
 
         return self
 
-    def add_dropdown(self, name: str, options: List[Any], value: Any = None, required: bool = False) -> 'OutputBuilder':
+    def add_option_group(
+            self,
+            name: str,
+            label: Union[str, Latex],
+            options: List[Union[Option, str, int, float]],
+            value: Any = None,
+            required: bool = False
+    ) -> 'OutputBuilder':
         """Add a dropdown field. The user can choose between the provided options.
 
         :param name: The name of the input field, should be unique.
+        :param label: The label for the input field, should be unique.
         :param options: A list of available options to choose from.
         :param value: The default value to display.
         :param required: Mark the field as required.
         :return: The current output builder instance.
         """
-        dropdown: DropdownOutput = DropdownOutput(self._index, name, options, value, required)
+        option_group: OptionGroupOutput = OptionGroupOutput(self._index, name, label, options, value, required)
 
-        self._output.append(dropdown)
+        self._output.append(option_group)
 
         return self
 

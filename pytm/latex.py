@@ -1,3 +1,6 @@
+from typing import Union
+
+
 class Latex:
     def __init__(self, code: str):
         self._code: str = code
@@ -10,3 +13,7 @@ class Latex:
         return {
             'code': self._code
         }
+
+    @staticmethod
+    def marshal(text: Union[str, 'Latex']) -> Union[str, dict]:
+        return text if isinstance(text, str) else text.to_json()
