@@ -14,6 +14,7 @@ from flask_cors import CORS
 
 from .archiver import Archiver
 from .context import Context
+from .method_call_exception import MethodCallException
 from .output.button import ButtonOutput
 
 if TYPE_CHECKING:
@@ -34,7 +35,7 @@ class API:
         return self._blueprint
 
     def handle_start(self) -> Response:
-        result: 'OutputBuilder' = self.context.exercise.start()
+        result: 'OutputBuilder' = self._call_method(self.context.exercise.start)
         json: list = result.to_json()
         envelop = self._wrap_with_envelop(json)
         return jsonify(envelop)
@@ -84,7 +85,7 @@ class API:
             parameter: Parameter = method_signature.parameters[key]
             self._apply_argument(parameter, arguments, available_arguments)
 
-        return method(**arguments, **additional_parameters)
+        return self._call_method(method, **arguments, **additional_parameters)
 
     def _get_additional_parameters(self, envelop: dict) -> dict:
         additional_parameters: dict = envelop.pop(ButtonOutput.PARAMETERS_FIELD)
@@ -114,3 +115,10 @@ class API:
         # apply kwargs
         elif parameter.kind == Parameter.VAR_KEYWORD:
             arguments.update(**available_arguments)
+
+    @staticmethod
+    def _call_method(method: Callable[..., 'OutputBuilder'], **kwargs) -> 'OutputBuilder':
+        try:
+            return method(**kwargs)
+        except BaseException as e:
+            raise MethodCallException() from e
