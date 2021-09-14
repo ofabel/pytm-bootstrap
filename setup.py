@@ -7,7 +7,7 @@ setup(name='pytm',
       author='Oliver Fabel',
       author_email='oliver.fabel@fhnw.ch',
       packages=['pytm'],
-      description='Skeleton for an Python Tool Manager exercise or tool',
+      description='Skeleton for a Python Tool Manager exercise or tool',
       install_requires=[
           'Flask==2.0.1',
           'Flask-Cors==3.0.10'
