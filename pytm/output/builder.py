@@ -2,11 +2,14 @@ from typing import Callable
 from typing import List
 from typing import Union
 
+from matplotlib.figure import Figure
+
 from .abstract import AbstractOutput
 from .button import ButtonOutput
 from .field import FieldOutput
 from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
+from .figure import FigureOutput
 from .image import ImageOutput
 from .option import Option
 from .option_group import OptionGroupOutput
@@ -59,6 +62,27 @@ class OutputBuilder:
         image: ImageOutput = ImageOutput(self._index, path, description)
 
         self._output.append(image)
+
+        return self
+
+    def add_figure(
+            self,
+            figure: Figure,
+            description: str = None,
+            dpi: int = None,
+            as_png: bool = None
+    ) -> 'OutputBuilder':
+        """Add a figure to the output.
+
+        :param figure: The figure to show.
+        :param description: An optional description of the figure.
+        :param dpi: DPI resolution for the figure. Default is 300.
+        :param as_png: Output the figure as PNG. Default is SVG.
+        :return: The current output builder instance.
+        """
+        graph: FigureOutput = FigureOutput(self._index, figure, description, dpi, as_png)
+
+        self._output.append(graph)
 
         return self
 
