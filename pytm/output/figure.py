@@ -57,6 +57,11 @@ class FigureOutput(AbstractOutput):
 
     def _save_figure(self) -> bytes:
         buffer: BytesIO = BytesIO()
-        self._figure.savefig(buffer, transparent=True, format=self._get_format(), dpi=self._dpi)
+        self._figure.savefig(fname=buffer,
+                             transparent=True,
+                             format=self._get_format(),
+                             dpi=self._dpi,
+                             pad_inches=0,
+                             bbox_inches='tight')
         buffer.seek(0)
         return buffer.read()
