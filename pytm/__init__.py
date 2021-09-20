@@ -3,3 +3,5 @@ from .latex import Latex
 from .output import Option
 from .output import OutputBuilder as Output
 from .serializer import Serializer
+
+__version__ = '0.2.0'
