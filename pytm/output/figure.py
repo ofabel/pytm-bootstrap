@@ -41,7 +41,7 @@ class FigureOutput(AbstractOutput):
     def to_json(self) -> dict:
         return {
             **super().to_json(),
-            'data': self._get_data_url() if self._as_png else self._save_figure().decode('utf-8'),
+            'src': self._get_data_url(),
             'description': self._description
         }
 
