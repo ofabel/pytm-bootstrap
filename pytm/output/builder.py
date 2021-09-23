@@ -1,5 +1,6 @@
 from typing import Callable
 from typing import List
+from typing import Optional
 from typing import Union
 
 from matplotlib.figure import Figure
@@ -22,6 +23,7 @@ class OutputBuilder:
     def __init__(self, serializer: Serializer):
         self._serializer: Serializer = serializer
         self._output: list[AbstractOutput] = []
+        self._score: Optional[int] = None
 
     @property
     def _index(self):
@@ -221,8 +223,25 @@ class OutputBuilder:
 
         return self
 
-    def to_json(self) -> List[dict]:
-        return list(map(self._output_to_json, self._output))
+    def add_score(self, score: int) -> 'OutputBuilder':
+        """Set a score. The score will be submitted to the connected LMS (e.g. Moodle).
+
+        :param score: The score to set.
+        :return: The current output builder instance.
+        """
+
+        self._score = score
+
+        return self
+
+    def to_json(self) -> dict:
+        output: List[dict] = list(map(self._output_to_json, self._output))
+        score: Optional[int] = self._score
+
+        return {
+            'items': output,
+            'score': score
+        }
 
     @staticmethod
     def _output_to_json(output: AbstractOutput) -> dict:

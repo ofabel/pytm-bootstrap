@@ -4,4 +4,4 @@ from .output import Option
 from .output import OutputBuilder as Output
 from .serializer import Serializer
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'

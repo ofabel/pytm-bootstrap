@@ -36,7 +36,7 @@ class API:
 
     def handle_start(self) -> Response:
         result: 'OutputBuilder' = self._call_method(self.context.exercise.start)
-        json: list = result.to_json()
+        json: dict = result.to_json()
         envelop = self._wrap_with_envelop(json)
         return jsonify(envelop)
 
@@ -44,7 +44,7 @@ class API:
         method: Callable[..., 'OutputBuilder'] = getattr(self.context.exercise, action, None)
         envelop_in: dict = request.json
         result: 'OutputBuilder' = self._call_action(method, envelop_in)
-        json: list = result.to_json()
+        json: dict = result.to_json()
         envelop_out: dict = self._wrap_with_envelop(json)
         return jsonify(envelop_out)
 
