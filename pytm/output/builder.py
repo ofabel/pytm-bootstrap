@@ -23,7 +23,7 @@ class OutputBuilder:
     def __init__(self, serializer: Serializer):
         self._serializer: Serializer = serializer
         self._output: list[AbstractOutput] = []
-        self._score: Optional[int] = None
+        self._score: Optional[float] = None
 
     @property
     def _index(self):
@@ -223,10 +223,10 @@ class OutputBuilder:
 
         return self
 
-    def add_score(self, score: int) -> 'OutputBuilder':
+    def add_score(self, score: float) -> 'OutputBuilder':
         """Set a score. The score will be submitted to the connected LMS (e.g. Moodle).
 
-        :param score: The score to set.
+        :param score: The score to set. Must be in the range 0.0 - 1.0.
         :return: The current output builder instance.
         """
 
@@ -236,7 +236,7 @@ class OutputBuilder:
 
     def to_json(self) -> dict:
         output: List[dict] = list(map(self._output_to_json, self._output))
-        score: Optional[int] = self._score
+        score: Optional[float] = self._score
 
         return {
             'items': output,
