@@ -15,6 +15,7 @@ from .image import ImageOutput
 from .option import Option
 from .option_group import OptionGroupOutput
 from .paragraph import ParagraphOutput
+from .table import TableOutput
 from ..latex import Latex
 from ..serializer import Serializer
 
@@ -85,6 +86,18 @@ class OutputBuilder:
         graph: FigureOutput = FigureOutput(self._index, figure, description, dpi, as_png)
 
         self._output.append(graph)
+
+        return self
+
+    def add_table(self, data: List[List[Union[str, int, float]]]) -> 'OutputBuilder':
+        """Add a table to the output.
+
+        :param data: The data to display.
+        :return: The current output builder instance.
+        """
+        table: TableOutput = TableOutput(self._index, data)
+
+        self._output.append(table)
 
         return self
 
