@@ -49,8 +49,8 @@ class FieldOutput(AbstractOutput):
 
     def to_json(self) -> dict:
         return {
-            **self._attributes,
             **super().to_json(),
+            'additionalAttributes': self._attributes,
             'type': self._type,
             'name': self._name,
             'label': Latex.marshal(self._label),
