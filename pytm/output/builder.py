@@ -120,8 +120,7 @@ class OutputBuilder:
         :param max_length: The maximum length of this text field.
         :return: The current output builder instance.
         """
-        field: FieldOutput = FieldOutput(self._index, FieldType.TEXT, name, label, value, **{
-            FieldAttribute.REQUIRED: required,
+        field: FieldOutput = FieldOutput(self._index, FieldType.TEXT, name, label, value, required, **{
             FieldAttribute.MAX_LENGTH: max_length
         })
 
@@ -151,8 +150,7 @@ class OutputBuilder:
         :param step: The granularity of the input.
         :return: The current output builder instance.
         """
-        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, label, value, **{
-            FieldAttribute.REQUIRED: required,
+        field: FieldOutput = FieldOutput(self._index, FieldType.NUMBER, name, label, value, required, **{
             FieldAttribute.MIN: min_value,
             FieldAttribute.MAX: max_value,
             FieldAttribute.STEP: step

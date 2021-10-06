@@ -2,6 +2,7 @@ from typing import Dict
 from typing import Union
 
 from .abstract import AbstractOutput
+from .field_attribute import FieldAttribute
 from .field_type_enum import FieldType
 from ..latex import Latex
 
@@ -14,6 +15,7 @@ class FieldOutput(AbstractOutput):
             name: str,
             label: Union[str, Latex],
             value: Union[int, float, str, None] = None,
+            required: bool = True,
             **attrs: Union[int, float, str]
     ):
         super().__init__(index)
@@ -22,6 +24,7 @@ class FieldOutput(AbstractOutput):
         self._name: str = name
         self._label: Union[str, Latex] = label
         self._value: Union[int, float, str, None] = value
+        self._required: bool = required
         self._attributes: Dict[str, Union[int, float, str]] = attrs
 
     @property
@@ -41,6 +44,10 @@ class FieldOutput(AbstractOutput):
         return self._value
 
     @property
+    def required(self) -> bool:
+        return self._required
+
+    @property
     def attributes(self) -> Dict[str, Union[int, str]]:
         return self._attributes
 
@@ -54,5 +61,6 @@ class FieldOutput(AbstractOutput):
             'type': self._type,
             'name': self._name,
             'label': Latex.marshal(self._label),
-            'value': self._value
+            'value': self._value,
+            FieldAttribute.REQUIRED: self._required
         }
