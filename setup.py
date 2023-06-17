@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(packages=find_packages(include=['pytm', 'pytm.*']),
       install_requires=[
-          'Flask==2.0.1',
+          'Flask==2.3.2',
           'Flask-Cors==3.0.10',
-          'matplotlib==3.4.3'
+          'matplotlib==3.7.1'
       ])
