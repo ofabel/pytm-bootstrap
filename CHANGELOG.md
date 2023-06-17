@@ -7,12 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0rc4] - 2023-06-17
+
+### Fixed
+
+* Passing additional arguments to actions.
+
 ## [1.0.0rc3] - 2023-06-17
 
 ### Added
 
 * Published package on [PyPI](https://pypi.org/project/pytmlib/).
 
-[unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0rc3...HEAD
+[unreleased]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc4...HEAD
 
-[1.0.0rc3]: https://github.com/olivierlacan/keep-a-changelog/releases/tag/v1.0.0rc3
+[1.0.0rc4]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc3...v1.0.0rc4
+
+[1.0.0rc3]: https://github.com/ofabel/pytm-bootstrap/releases/tag/v1.0.0rc3

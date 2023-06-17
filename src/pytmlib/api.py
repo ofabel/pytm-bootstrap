@@ -83,7 +83,7 @@ class API:
 
         for key in method_signature.parameters.keys():
             parameter: Parameter = method_signature.parameters[key]
-            self._apply_argument(parameter, arguments, available_arguments)
+            self._apply_argument(parameter, arguments, available_arguments, additional_parameters)
 
         return self._call_method(method, **arguments, **additional_parameters)
 
@@ -95,11 +95,11 @@ class API:
         return self._context.serializer.deserialize(parameters_signature, encoded_parameters)
 
     @staticmethod
-    def _apply_argument(parameter: Parameter, arguments: dict, available_arguments: dict):
+    def _apply_argument(parameter: Parameter, arguments: dict, available_arguments: dict, additional_parameters: dict):
         name: str = parameter.name
         is_positional_or_keyword: bool = parameter.kind is Parameter.POSITIONAL_OR_KEYWORD
         is_empty_default: bool = parameter.default is Parameter.empty
-        is_argument_available: bool = name in available_arguments
+        is_argument_available: bool = name in available_arguments or name in additional_parameters
 
         # ignore not present arguments with default value
         if is_positional_or_keyword and not is_empty_default and not is_argument_available:
