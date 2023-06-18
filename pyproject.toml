@@ -10,7 +10,7 @@ authors = [
 ]
 description = "This is the base library for the Python Tool Manager."
 readme = "README.md"
-license = { file = "LICENSE" }
+license = "MIT"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
