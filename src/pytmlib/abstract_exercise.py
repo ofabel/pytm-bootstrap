@@ -1,15 +1,14 @@
 import abc
 import logging
 import os
-import typing
 import uuid
+from typing import Callable
+from typing import List
+from typing import Tuple
 
 from .context import Context
 from .create_app import create_app
 from .output import OutputBuilder as Output
-
-if typing.TYPE_CHECKING:
-    from .output import OutputBuilder
 
 
 class AbstractExercise(abc.ABC):
@@ -34,13 +33,13 @@ class AbstractExercise(abc.ABC):
     def start(self) -> Output:
         pass
 
-    def entrypoints(self) -> typing.List[typing.Callable[..., 'OutputBuilder']]:
+    def entrypoints(self) -> List[Callable[..., Output]]:
         return [
             self.start
         ]
 
     @staticmethod
-    def _get_secret() -> typing.Tuple[str, bool]:
+    def _get_secret() -> Tuple[str, bool]:
         hostname: str = os.getenv('HOSTNAME', os.name)
         fallback: uuid = uuid.uuid5(uuid.NAMESPACE_DNS, hostname)
         secret: str = os.getenv('PYTM_SECRET')

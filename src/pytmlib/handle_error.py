@@ -7,7 +7,7 @@ from flask import Response
 from flask import make_response
 from flask import request
 
-from .method_call_exception import MethodCallException
+from .exceptions import MethodCallException
 
 
 def handle_error(logger: Logger, error: Exception) -> Response:

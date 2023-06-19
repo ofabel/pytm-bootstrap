@@ -14,7 +14,8 @@ from flask_cors import CORS
 
 from .archiver import Archiver
 from .context import Context
-from .method_call_exception import MethodCallException
+from .exceptions import EntrypointNotFound
+from .exceptions import MethodCallException
 from .output.button import ButtonOutput
 
 if TYPE_CHECKING:
@@ -41,13 +42,21 @@ class API:
 
         return jsonify(envelop)
 
+    def handle_entrypoint(self, entrypoint: str) -> Response:
+        method: Callable[..., 'OutputBuilder'] = self._get_entrypoint_by_name(entrypoint)
+        result: 'OutputBuilder' = self._call_method(method)
+        json: dict = result.to_json()
+        envelop = self._wrap_with_envelop(json)
+
+        return jsonify(envelop)
+
     def handle_entrypoints(self) -> Response:
         try:
             entrypoints = self.context.exercise.entrypoints()
         except BaseException as reason:
             raise MethodCallException() from reason
 
-        json: list = [entrypoint.__name__ for entrypoint in entrypoints]
+        json: list = [{'name': entrypoint.__name__, 'title': entrypoint.__doc__.trim()} for entrypoint in entrypoints]
 
         envelop = self._wrap_with_envelop(json)
 
@@ -79,6 +88,7 @@ class API:
 
         api.add_url_rule('/entrypoints', 'entrypoints', self.handle_entrypoints, methods=['GET'])
         api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
+        api.add_url_rule('/entry/<entrypoint>', self.handle_entrypoint, methods=['GET'])
         api.add_url_rule('/call/<action>', 'call', self.handle_action, methods=['POST'])
         api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
 
@@ -131,6 +141,12 @@ class API:
         # apply kwargs
         elif parameter.kind == Parameter.VAR_KEYWORD:
             arguments.update(**applicable_arguments)
+
+    def _get_entrypoint_by_name(self, name: str):
+        for entrypoint in self.context.exercise.entrypoints():
+            if entrypoint.__name__ == name:
+                return entrypoint
+        raise EntrypointNotFound
 
     @staticmethod
     def _call_method(method: Callable[..., 'OutputBuilder'], **kwargs) -> 'OutputBuilder':

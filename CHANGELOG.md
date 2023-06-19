@@ -29,10 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Published package on [PyPI](https://pypi.org/project/pytmlib/).
 
-[unreleased]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0...HEAD
 
-[1.0.0rc4]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc4...v1.0.0
+[1.0.0]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc5...v1.0.0
 
-[1.0.0rc4]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc3...v1.0.0rc4
+[1.0.0rc5]: https://github.com/ofabel/pytm-bootstrap/compare/v1.0.0rc3...v1.0.0rc5
 
 [1.0.0rc3]: https://github.com/ofabel/pytm-bootstrap/releases/tag/v1.0.0rc3

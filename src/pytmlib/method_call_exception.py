@@ -1,2 +1,0 @@
-class MethodCallException(RuntimeError):
-    pass
