@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+* Entrypoints endpoint to support exercises with multiple start methods.
+
 ## [1.0.0] - 2023-06-18
 
 ### Added

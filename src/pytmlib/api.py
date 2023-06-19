@@ -38,6 +38,19 @@ class API:
         result: 'OutputBuilder' = self._call_method(self.context.exercise.start)
         json: dict = result.to_json()
         envelop = self._wrap_with_envelop(json)
+
+        return jsonify(envelop)
+
+    def handle_entrypoints(self) -> Response:
+        try:
+            entrypoints = self.context.exercise.entrypoints()
+        except BaseException as reason:
+            raise MethodCallException() from reason
+
+        json: list = [entrypoint.__name__ for entrypoint in entrypoints]
+
+        envelop = self._wrap_with_envelop(json)
+
         return jsonify(envelop)
 
     def handle_action(self, action: str) -> Response:
@@ -46,6 +59,7 @@ class API:
         result: 'OutputBuilder' = self._call_action(method, envelop_in)
         json: dict = result.to_json()
         envelop_out: dict = self._wrap_with_envelop(json)
+
         return jsonify(envelop_out)
 
     def handle_upload(self) -> Response:
@@ -63,6 +77,7 @@ class API:
 
         CORS(api)
 
+        api.add_url_rule('/entrypoints', 'entrypoints', self.handle_entrypoints, methods=['GET'])
         api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
         api.add_url_rule('/call/<action>', 'call', self.handle_action, methods=['POST'])
         api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
@@ -121,5 +136,5 @@ class API:
     def _call_method(method: Callable[..., 'OutputBuilder'], **kwargs) -> 'OutputBuilder':
         try:
             return method(**kwargs)
-        except BaseException as e:
-            raise MethodCallException() from e
+        except BaseException as reason:
+            raise MethodCallException() from reason
