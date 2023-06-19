@@ -88,7 +88,7 @@ class API:
 
         api.add_url_rule('/entrypoints', 'entrypoints', self.handle_entrypoints, methods=['GET'])
         api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
-        api.add_url_rule('/entry/<entrypoint>', self.handle_entrypoint, methods=['GET'])
+        api.add_url_rule('/entry/<entrypoint>', 'entry', self.handle_entrypoint, methods=['GET'])
         api.add_url_rule('/call/<action>', 'call', self.handle_action, methods=['POST'])
         api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
 
