@@ -56,7 +56,7 @@ class API:
         except BaseException as reason:
             raise MethodCallException() from reason
 
-        json: list = [{'name': entrypoint.__name__, 'title': entrypoint.__doc__.trim()} for entrypoint in entrypoints]
+        json: list = [{'name': entrypoint.__name__, 'title': entrypoint.__doc__} for entrypoint in entrypoints]
 
         envelop = self._wrap_with_envelop(json)
 
