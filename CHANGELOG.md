@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Entrypoints endpoint to support exercises with multiple start methods.
+* Get application secret from `PYTM_SECRET` environment variable.
+* Get exercise ID from `PYTM_UID` environment variable.
 
 ## [1.0.0] - 2023-06-18
 
