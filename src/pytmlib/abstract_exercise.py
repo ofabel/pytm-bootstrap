@@ -2,14 +2,14 @@ import abc
 import logging
 import os
 import uuid
-from typing import List
+from typing import Iterable
 from typing import Tuple
 
 from .context import Context
 from .create_app import create_app
 from .decorators import ENTRYPOINT_MARKER
 from .output import OutputBuilder as Output
-from .types import Entrypoint
+from .types import Action
 
 
 class AbstractExercise(abc.ABC):
@@ -34,15 +34,12 @@ class AbstractExercise(abc.ABC):
     def start(self) -> Output:
         pass
 
-    def get_entrypoints(self) -> List[Entrypoint]:
-        entrypoints = []
+    def get_entrypoints(self) -> Iterable[Action]:
         for name in dir(self):
             func = getattr(self, name)
 
             if hasattr(func, ENTRYPOINT_MARKER):
-                entrypoints.append(func)
-
-        return entrypoints
+                yield func
 
     @staticmethod
     def _get_secret() -> Tuple[str, bool]:

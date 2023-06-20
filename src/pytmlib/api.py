@@ -14,10 +14,11 @@ from flask_cors import CORS
 
 from .archiver import Archiver
 from .context import Context
+from .decorators import ENTRYPOINT_TITLE
 from .exceptions import EntrypointNotFound
 from .exceptions import MethodCallException
 from .output.button import ButtonOutput
-from .types import Entrypoint
+from .types import Action
 
 if TYPE_CHECKING:
     from .output import OutputBuilder
@@ -44,7 +45,7 @@ class API:
         return jsonify(envelop)
 
     def handle_entrypoint(self, entrypoint: str) -> Response:
-        method: Entrypoint = self._get_entrypoint_by_name(entrypoint)
+        method: Action = self._get_entrypoint_by_name(entrypoint)
         result: 'OutputBuilder' = self._call_method(method)
         json: dict = result.to_json()
         envelop = self._wrap_with_envelop(json)
@@ -64,7 +65,7 @@ class API:
         return jsonify(envelop)
 
     def handle_action(self, action: str) -> Response:
-        method: Entrypoint = getattr(self.context.exercise, action, None)
+        method: Action = getattr(self.context.exercise, action, None)
         envelop_in: dict = request.json
         result: 'OutputBuilder' = self._call_action(method, envelop_in)
         json: dict = result.to_json()
@@ -101,7 +102,7 @@ class API:
             'payload': payload
         }
 
-    def _call_action(self, method: Entrypoint, envelop: dict) -> 'OutputBuilder':
+    def _call_action(self, method: Action, envelop: dict) -> 'OutputBuilder':
         method_signature: Signature = signature(method)
         available_arguments: dict = envelop.pop('payload')
         additional_parameters: dict = self._get_additional_parameters(envelop)
@@ -143,23 +144,24 @@ class API:
         elif parameter.kind == Parameter.VAR_KEYWORD:
             arguments.update(**applicable_arguments)
 
-    def _get_entrypoint_by_name(self, name: str) -> Entrypoint:
+    def _get_entrypoint_by_name(self, name: str) -> Action:
         for entrypoint in self.context.exercise.get_entrypoints():
             if entrypoint.__name__ == name:
                 return entrypoint
         raise EntrypointNotFound
 
     @staticmethod
-    def _call_method(method: Entrypoint, **kwargs) -> 'OutputBuilder':
+    def _call_method(method: Action, **kwargs) -> 'OutputBuilder':
         try:
             return method(**kwargs)
         except BaseException as reason:
             raise MethodCallException() from reason
 
     @staticmethod
-    def _map_entrypoint_to_json(entrypoint: Entrypoint) -> dict:
+    def _map_entrypoint_to_json(entrypoint: Action) -> dict:
         name: str = entrypoint.__name__
-        title: Optional[str] = entrypoint.__doc__
-        title = title if title is None else title.strip()
+        title: str = getattr(entrypoint, ENTRYPOINT_TITLE, name[0].upper() + name[1:])
+        description: Optional[str] = entrypoint.__doc__
+        description = description if description is None else description.strip().splitlines(False).pop(0)
 
-        return dict(name=name, title=title)
+        return dict(name=name, title=title, description=description)
