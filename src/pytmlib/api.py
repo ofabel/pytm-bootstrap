@@ -2,7 +2,7 @@ from base64 import b64encode
 from inspect import Parameter
 from inspect import Signature
 from inspect import signature
-from typing import Callable
+from typing import Optional
 from typing import TYPE_CHECKING
 from typing import Union
 
@@ -17,6 +17,7 @@ from .context import Context
 from .exceptions import EntrypointNotFound
 from .exceptions import MethodCallException
 from .output.button import ButtonOutput
+from .types import Entrypoint
 
 if TYPE_CHECKING:
     from .output import OutputBuilder
@@ -43,7 +44,7 @@ class API:
         return jsonify(envelop)
 
     def handle_entrypoint(self, entrypoint: str) -> Response:
-        method: Callable[..., 'OutputBuilder'] = self._get_entrypoint_by_name(entrypoint)
+        method: Entrypoint = self._get_entrypoint_by_name(entrypoint)
         result: 'OutputBuilder' = self._call_method(method)
         json: dict = result.to_json()
         envelop = self._wrap_with_envelop(json)
@@ -52,18 +53,18 @@ class API:
 
     def handle_entrypoints(self) -> Response:
         try:
-            entrypoints = self.context.exercise.entrypoints()
+            entrypoints = self.context.exercise.get_entrypoints()
         except BaseException as reason:
             raise MethodCallException() from reason
 
-        json: list = [{'name': entrypoint.__name__, 'title': entrypoint.__doc__} for entrypoint in entrypoints]
+        json: list = [self._map_entrypoint_to_json(entrypoint) for entrypoint in entrypoints]
 
         envelop = self._wrap_with_envelop(json)
 
         return jsonify(envelop)
 
     def handle_action(self, action: str) -> Response:
-        method: Callable[..., 'OutputBuilder'] = getattr(self.context.exercise, action, None)
+        method: Entrypoint = getattr(self.context.exercise, action, None)
         envelop_in: dict = request.json
         result: 'OutputBuilder' = self._call_action(method, envelop_in)
         json: dict = result.to_json()
@@ -100,7 +101,7 @@ class API:
             'payload': payload
         }
 
-    def _call_action(self, method: Callable[..., 'OutputBuilder'], envelop: dict) -> 'OutputBuilder':
+    def _call_action(self, method: Entrypoint, envelop: dict) -> 'OutputBuilder':
         method_signature: Signature = signature(method)
         available_arguments: dict = envelop.pop('payload')
         additional_parameters: dict = self._get_additional_parameters(envelop)
@@ -142,15 +143,23 @@ class API:
         elif parameter.kind == Parameter.VAR_KEYWORD:
             arguments.update(**applicable_arguments)
 
-    def _get_entrypoint_by_name(self, name: str):
-        for entrypoint in self.context.exercise.entrypoints():
+    def _get_entrypoint_by_name(self, name: str) -> Entrypoint:
+        for entrypoint in self.context.exercise.get_entrypoints():
             if entrypoint.__name__ == name:
                 return entrypoint
         raise EntrypointNotFound
 
     @staticmethod
-    def _call_method(method: Callable[..., 'OutputBuilder'], **kwargs) -> 'OutputBuilder':
+    def _call_method(method: Entrypoint, **kwargs) -> 'OutputBuilder':
         try:
             return method(**kwargs)
         except BaseException as reason:
             raise MethodCallException() from reason
+
+    @staticmethod
+    def _map_entrypoint_to_json(entrypoint: Entrypoint) -> dict:
+        name: str = entrypoint.__name__
+        title: Optional[str] = entrypoint.__doc__
+        title = title if title is None else title.strip()
+
+        return dict(name=name, title=title)
