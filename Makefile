@@ -1,6 +1,6 @@
 clean:
-	rm -rf dist
+	hatch clean
 build: clean
-	python -m build
+	hatch build
 publish: build
 	python -m twine upload dist/*

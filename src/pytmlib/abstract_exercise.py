@@ -35,6 +35,11 @@ class AbstractExercise(abc.ABC):
         return create_app(context, static_folder_path)
 
     @property
+    @abc.abstractmethod
+    def version(self) -> str:
+        raise NotImplemented
+
+    @property
     def output(self) -> Output:
         return self._context.output
 

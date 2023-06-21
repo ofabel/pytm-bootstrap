@@ -2,6 +2,8 @@ from base64 import b64encode
 from inspect import Parameter
 from inspect import Signature
 from inspect import signature
+from platform import platform
+from platform import python_version
 from typing import Optional
 from typing import TYPE_CHECKING
 from typing import Union
@@ -19,6 +21,7 @@ from .exceptions import EntrypointNotFound
 from .exceptions import MethodCallException
 from .output.button import ButtonOutput
 from .types import Action
+from .version import __version__
 
 if TYPE_CHECKING:
     from .output import OutputBuilder
@@ -37,14 +40,14 @@ class API:
     def blueprint(self) -> Blueprint:
         return self._blueprint
 
-    def handle_start(self) -> Response:
+    def _handle_start(self) -> Response:
         result: 'OutputBuilder' = self._call_method(self.context.exercise.start)
         json: dict = result.to_json()
         envelop = self._wrap_with_envelop(json)
 
         return jsonify(envelop)
 
-    def handle_entrypoint(self, entrypoint: str) -> Response:
+    def _handle_entrypoint(self, entrypoint: str) -> Response:
         method: Action = self._get_entrypoint_by_name(entrypoint)
         result: 'OutputBuilder' = self._call_method(method)
         json: dict = result.to_json()
@@ -52,7 +55,7 @@ class API:
 
         return jsonify(envelop)
 
-    def handle_entrypoints(self) -> Response:
+    def _handle_entrypoints(self) -> Response:
         try:
             entrypoints = self.context.exercise.get_entrypoints()
         except BaseException as reason:
@@ -64,7 +67,7 @@ class API:
 
         return jsonify(envelop)
 
-    def handle_action(self, action: str) -> Response:
+    def _handle_action(self, action: str) -> Response:
         method: Action = getattr(self.context.exercise, action, None)
         envelop_in: dict = request.json
         result: 'OutputBuilder' = self._call_action(method, envelop_in)
@@ -73,7 +76,7 @@ class API:
 
         return jsonify(envelop_out)
 
-    def handle_upload(self) -> Response:
+    def _handle_upload(self) -> Response:
         data: bytes = Archiver('.').create_tar()
         mimetype: str = 'application/tar+gzip'
         b64_encoded_data: str = b64encode(data).decode('utf-8')
@@ -83,16 +86,25 @@ class API:
 
         return jsonify(json_data)
 
+    def _handle_info(self) -> Response:
+        return jsonify({
+            'pytm': __version__,
+            'version': self.context.exercise.version,
+            'platform': platform(),
+            'python': python_version()
+        })
+
     def _create_blueprint(self) -> Blueprint:
         api: Blueprint = Blueprint('api', __name__)
 
         CORS(api)
 
-        api.add_url_rule('/entrypoints', 'entrypoints', self.handle_entrypoints, methods=['GET'])
-        api.add_url_rule('/start', 'start', self.handle_start, methods=['GET'])
-        api.add_url_rule('/entry/<entrypoint>', 'entry', self.handle_entrypoint, methods=['GET'])
-        api.add_url_rule('/call/<action>', 'call', self.handle_action, methods=['POST'])
-        api.add_url_rule('/upload', 'upload', self.handle_upload, methods=['GET'])
+        api.add_url_rule('/entrypoints', 'entrypoints', self._handle_entrypoints, methods=['GET'])
+        api.add_url_rule('/start', 'start', self._handle_start, methods=['GET'])
+        api.add_url_rule('/entry/<entrypoint>', 'entry', self._handle_entrypoint, methods=['GET'])
+        api.add_url_rule('/call/<action>', 'call', self._handle_action, methods=['POST'])
+        api.add_url_rule('/upload', 'upload', self._handle_upload, methods=['GET'])
+        api.add_url_rule('/info', 'info', self._handle_info, methods=['GET'])
 
         return api
 
