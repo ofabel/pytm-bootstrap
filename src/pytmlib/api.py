@@ -3,6 +3,7 @@ from inspect import Parameter
 from inspect import Signature
 from inspect import signature
 from platform import platform
+from platform import python_implementation
 from platform import python_version
 from typing import Optional
 from typing import TYPE_CHECKING
@@ -91,7 +92,10 @@ class API:
             'pytm': __version__,
             'version': self.context.exercise.version,
             'platform': platform(),
-            'python': python_version()
+            'runtime': {
+                'type': python_implementation(),
+                'version': python_version()
+            }
         })
 
     def _create_blueprint(self) -> Blueprint:
