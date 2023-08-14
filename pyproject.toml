@@ -33,6 +33,7 @@ keywords = [
 [tool.hatch.build]
 only-packages = true
 sources = ["src"]
+directory = "dist/packages"
 
 [tool.hatch.version]
 path = "src/pytmlib/version.py"
