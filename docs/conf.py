@@ -25,3 +25,7 @@ copyright = str(now.year) + ', ' + author
 version = release = importlib.__import__('pytmlib').version.__version__
 language = 'en'
 extensions = ['sphinx.ext.autodoc']
+
+html_theme_options = {
+    'fixed_sidebar': True
+}
