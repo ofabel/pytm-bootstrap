@@ -1,5 +1,6 @@
 /venv/
 /build/
 /dist/
+/docs/graphs/*.svg
 __pycache__
 *.egg-info

@@ -1,0 +1,21 @@
+flowchart LR
+    user(("User"))
+    subgraph pytm ["Python Tool Manager"]
+        direction TB
+        database[("Code")]
+        proxy[Proxy]
+        subgraph docker ["Docker"]
+            subgraph tool ["Tool"]
+            end
+        end
+    end
+    subgraph lms ["Moodle"]
+        subgraph exercise ["Exercise"]
+        end
+    end
+    user -- "Input" --> exercise
+    exercise -- "Output" --> user
+    exercise <-- "Data" --> proxy
+    proxy <-- "Data" --> tool
+    database --> tool
+    proxy -- "Grades" --> lms

@@ -28,8 +28,19 @@ compatible LMS.
 
 Features
 --------
-* bla
+
+* Create interactive and dynamic exercises.
+* Create plots and figures with `Matplotlib <https://matplotlib.org/>`_.
+* Make full use of the power of Python.
+
+Where to Start
+==============
+
+1. :doc:`Installation </installation>`
+2. :doc:`Quickstart </quickstart>`
+3. :doc:`Reference </reference>`
 
 License
 -------
+
 The Python Tool Manager is published under the :doc:`MIT </license>` license.

@@ -14,7 +14,7 @@ This library is dependant of the following packages:
 * [Flask-Cors](https://pypi.org/project/Flask-Cors/) to support cross-origin requests.
 * [matplotlib](https://pypi.org/project/matplotlib/) to render simple figures, graphs and plots.
 
-## Virtual environments
+## Virtual Environments
 
 It's recommended to create and use a [virtual environment](https://docs.python.org/3/library/venv.html) when
 programming an exercise with this library. You can create a virtual environment with the following command:
@@ -39,4 +39,13 @@ This library has the following requirements:
 * A plain text editor ([PyCharm](https://www.jetbrains.com/pycharm/)
   or [Visual Studio Code](https://code.visualstudio.com/) is recommended)
 * Bash compatible terminal (e.g. [Git Bash](https://gitforwindows.org/) or [Cygwin](https://www.cygwin.com) on Windows)
-* The use of [Git](https://git-scm.com/) as a version control system is highly recommended.
+* The use of [Git](https://git-scm.com/) as a [version control system](https://en.wikipedia.org/wiki/Version_control) is
+  highly recommended.
+
+## Install the Library
+
+To install the library, activate the virtual environment and execute the following command:
+
+```shell
+pip install pytmlib
+```

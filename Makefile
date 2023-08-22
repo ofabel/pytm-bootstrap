@@ -1,5 +1,8 @@
 SHELL=/bin/bash
 
+MMD_FILES=$(wildcard docs/graphs/*.mmd)
+MMD_SVG_FILES=$(foreach wrd,$(MMD_FILES),$(wrd).svg)
+
 all: build-docs build-packages
 
 clean-packages:
@@ -11,5 +14,7 @@ publish-packages: build-packages
 
 clean-docs:
 	rm -rf dist/docs
-build-docs: clean-docs
+docs/graphs/%.mmd.svg: docs/graphs/%.mmd
+	mmdc --input $^ --output "$@" --backgroundColor transparent --pdfFit --width 800 --height 800 --theme neutral
+build-docs: clean-docs $(MMD_SVG_FILES)
 	source venv/bin/activate && sphinx-build -b html docs dist/docs
