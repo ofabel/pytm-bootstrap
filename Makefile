@@ -18,3 +18,5 @@ docs/graphs/%.mmd.svg: docs/graphs/%.mmd
 	mmdc --input $^ --output "$@" --backgroundColor transparent --pdfFit --width 800 --height 800 --theme neutral
 build-docs: clean-docs $(MMD_SVG_FILES)
 	source venv/bin/activate && sphinx-build -b html docs dist/docs
+publish-docs: build-docs
+	./docs/publish.sh
