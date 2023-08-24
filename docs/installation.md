@@ -55,7 +55,7 @@ pip install pytmlib
 
 Create or edit the `requirements.txt` file and add the following line:
 
-```requirements.txt
+```text
 pytmlib>=1.0.0
 ```
 
