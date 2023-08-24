@@ -4,6 +4,7 @@
 
    installation
    quickstart
+   architecture
    reference
    Changes </changes>
    License </license>
@@ -37,9 +38,10 @@ Features
 Where to Start
 ==============
 
-1. :doc:`Installation </installation>`
-2. :doc:`Quickstart </quickstart>`
-3. :doc:`Reference </reference>`
+First, you need to setup a new Python project and :doc:`install the library </installation>` as a dependency. After
+successful installation, you can consider reading the :doc:`quickstart guide </quickstart>` and create your first
+exercise. If you need further information, checkout the :doc:`reference </reference>` or :doc:`architecture </architecture>`
+chapter.
 
 License
 -------

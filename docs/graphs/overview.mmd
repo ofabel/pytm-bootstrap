@@ -3,19 +3,19 @@ flowchart LR
     subgraph pytm ["Python Tool Manager"]
         direction TB
         database[("Code")]
-        proxy[Proxy]
+        api[API]
         subgraph docker ["Docker"]
             subgraph tool ["Tool"]
             end
         end
     end
     subgraph lms ["Moodle"]
+        direction TB
         subgraph exercise ["Exercise"]
         end
     end
-    user -- "Input" --> exercise
-    exercise -- "Output" --> user
-    exercise <-- "Data" --> proxy
-    proxy <-- "Data" --> tool
+    user <-- "Data" --> exercise
+    exercise <-- "Data" --> api
+    api <-- "Data" --> tool
     database --> tool
-    proxy -- "Grades" --> lms
+    api -- "Grades" --> lms
