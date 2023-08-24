@@ -1,4 +1,4 @@
-# Add Input fields
+# Input fields
 
 In order to create a dynamic exercise, we need to allow the user to enter data and send it to the exercise Python code.
 So replace the `app.py` file of your first exercise from the example above with the following code:
