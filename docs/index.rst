@@ -5,6 +5,7 @@
    installation
    quickstart
    reference
+   Changes </changes>
    License </license>
 
 Python Tool Manager
