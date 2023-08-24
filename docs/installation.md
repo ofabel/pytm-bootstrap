@@ -42,10 +42,26 @@ This library has the following requirements:
 * The use of [Git](https://git-scm.com/) as a [version control system](https://en.wikipedia.org/wiki/Version_control) is
   highly recommended.
 
-## Install the Library
+## Install the Library with Pip
 
-To install the library, activate the virtual environment and execute the following command:
+To install the library with [Pip](https://pip.pypa.io/en/stable/), activate the virtual environment and execute the
+following command:
 
 ```shell
 pip install pytmlib
+```
+
+## Install the Library with a Requirements File
+
+Create or edit the `requirements.txt` file and add the following line:
+
+```requirements.txt
+pytmlib>=1.0.0
+```
+
+To install the requirements, open a new console window, activate the virtual environment and execute the following
+command:
+
+```shell
+pip install -r requirements.txt
 ```
