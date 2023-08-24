@@ -1,25 +1,10 @@
-# Quickstart
+# First Exercise
 
 After successful [installation of this library](/installation) you can start creating your first exercise. Open your
 Python project folder (where your virtual environment folder is located) in your
 favourite IDE and create a new file named `app.py` with the following content:
 
-```python
-from pytmlib import AbstractExercise
-from pytmlib import entrypoint
-
-
-class Exercise(AbstractExercise):
-    @property
-    def version(self) -> str:
-        return '0.1.0'
-
-    @entrypoint
-    def start(self):
-        return self.output.add_latex('hello from pytmlib')
-
-
-app = Exercise()
+```{literalinclude} ./code/first-exercise.py
 ```
 
 The `version` property defines the current version of your exercise. Use semantic versioning according to
