@@ -8,6 +8,7 @@
    reference
    Changes </changes>
    License </license>
+   GitHub <https://www.github.com/ofabel/pytm-bootstrap>
 
 Python Tool Manager
 ===================
