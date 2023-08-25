@@ -41,8 +41,9 @@ This library has the following requirements:
 * Bash compatible terminal (e.g. [Git Bash](https://gitforwindows.org/) or [Cygwin](https://www.cygwin.com) on Windows)
 * The use of [Git](https://git-scm.com/) as a [version control system](https://en.wikipedia.org/wiki/Version_control) is
   highly recommended.
+* Access to the Python Tool Manager.
 
-## Install the Library with Pip
+## Install with Pip
 
 To install the library with [Pip](https://pip.pypa.io/en/stable/), activate the virtual environment and execute the
 following command:
@@ -51,7 +52,7 @@ following command:
 pip install pytmlib
 ```
 
-## Install the Library with a Requirements File
+### Using a requirements.txt File
 
 Create or edit the `requirements.txt` file and add the following line:
 

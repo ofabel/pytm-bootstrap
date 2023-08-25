@@ -31,20 +31,13 @@ Open the _Python Tool Manager_ and create a new exercise. Start the preview mode
 In order to upload your exercise, you need to create a [Dockerfile](https://docs.docker.com/engine/reference/builder/)
 at the same level as your `app.py` file is located and add the following content:
 
-```dockerfile
-FROM python:3.9
-
-WORKDIR /app
-
-COPY . .
-
-RUN pip install --no-cache-dir -r requirements.txt && \
-    pip install --no-cache-dir gunicorn
-    
-CMD gunicorn -b 0.0.0.0:8080 app:app
+```{literalinclude} ./code/Dockerfile
+:language: Dockerfile
 ```
 
 Now you can upload your first exercise.
+
+(input-fields)=
 
 ## Input fields
 
@@ -71,6 +64,10 @@ An exercise with fixed values is not very interesting and fun to solve. Therefor
 ```{literalinclude} ./code/dynamic-values.py
 ```
 
-As we can see in this slightly advanced version of the second example exercise, the `solve` method has now three
-additional parameters namely `m`,`b` and `y`. The values of these parameters are generated in the `start` method and
-passed as keyword arguments in the invocation of `add_action`.
+As we can see in this slightly advanced version of the [second example exercise](#input-fields), the `solve` method has
+now three additional parameters namely `m`,`b` and `y`. The values of these parameters are generated in the `start`
+method and passed as keyword arguments in the invocation of `add_action`.
+
+## Add a Score
+
+All what's left now is to send a grade to the connected {term}`LMS`

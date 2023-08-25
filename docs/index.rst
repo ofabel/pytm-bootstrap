@@ -6,6 +6,7 @@
    quickstart
    architecture
    reference
+   glossary
    Changes </changes>
    License </license>
    GitHub <https://www.github.com/ofabel/pytm-bootstrap>
@@ -26,8 +27,7 @@ Python Tool Manager
    :alt: GitHub issues
 
 Create interactive exercises and tools with `Python <https://www.python.org>`_ and include them in
-`Moodle <https://www.moogle.org>`_ and other `LTI <https://en.wikipedia.org/wiki/Learning_Tools_Interoperability>`_
-compatible LMS.
+`Moodle <https://www.moogle.org>`_ and other :term:`LTI` compatible :term:`LMS`.
 
 Features
 --------
