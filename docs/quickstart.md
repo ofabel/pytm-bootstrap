@@ -70,4 +70,9 @@ method and passed as keyword arguments in the invocation of `add_action`.
 
 ## Add a Score
 
-All what's left now is to send a grade to the connected {term}`LMS`
+All what's left now is to send a grade to the connected {term}`LMS`:
+
+## Add a plot
+
+```{literalinclude} ./code/add-plot.py
+```
