@@ -36,3 +36,7 @@ source_suffix = {
 html_theme_options = {
     'fixed_sidebar': True
 }
+html_show_sourcelink = False
+exclude_patterns = [
+    '**/_**'
+]
