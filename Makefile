@@ -9,8 +9,16 @@ init:
 	test -d examples && exit 0 || git clone https://github.com/ofabel/pytm-example examples
 
 install: init
-	test -d venv && exit 0 || python -m venv venv
-	test -d examples/venv && exit 0 || python -m venv examples/venv
+	test -d venv && exit 0 || \
+		python -m venv venv && \
+		source venv/bin/activate && \
+		pip install -r requirements.txt && \
+		pip install -r requirements-dev.txt
+	test -d examples/venv && exit 0 || \
+		python -m venv examples/venv && \
+		source examples/venv/bin/activate && \
+		pip install -r examples/requirements.txt && \
+		pip install -r examples/requirements-test.txt
 
 clean-packages:
 	hatch clean
