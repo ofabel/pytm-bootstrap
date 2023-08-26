@@ -42,9 +42,9 @@ Where to Start
 ==============
 
 First, you need to setup a new Python project and :doc:`install the library </installation>` as a dependency. After
-successful installation, you can consider reading the :doc:`quickstart guide </quickstart>` and create your first
-exercise. If you need further information, checkout the :doc:`reference </reference>` or :doc:`architecture </architecture>`
-chapter.
+successful installation, you can consider reading the :doc:`quickstart guide </quickstart>` and create
+your :ref:`first exercise <first-exercise>`. If you need further information, checkout the :doc:`reference </reference>`
+or :doc:`architecture </architecture>` chapter.
 
 License
 -------

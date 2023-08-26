@@ -6,6 +6,9 @@ Glossary
    Docker
       Operating system level virtualization software.
 
+   IDE
+      `Integrated Development Environment <https://en.wikipedia.org/wiki/Integrated_development_environment>`_
+
    LMS
       `Learning Management System <https://en.wikipedia.org/wiki/Learning_management_system>`_ (e.g. `Moodle <https://www.moogle.org>`_)
 

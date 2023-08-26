@@ -1,12 +1,15 @@
 # Quickstart
 
-This page should give you guidance to create your first exercises.
+This page should give you guidance to create your first exercises. The examples on this page are also available in a
+[separate repository on GitHub](https://github.com/ofabel/pytm-example). Feel free to check it out and play around.
+
+(first-exercise)=
 
 ## First Exercise
 
 After successful [installation of this library](/installation) you can start creating your first exercise. Open your
 Python project folder (where your virtual environment folder is located) in your
-favourite IDE and create a new file named `app.py` with the following content:
+favourite {term}`IDE` and create a new file named `app.py` with the following content:
 
 ```{literalinclude} ../examples/first-exercise/app.py
 ```
