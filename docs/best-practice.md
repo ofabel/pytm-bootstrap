@@ -8,3 +8,5 @@ This page should give you some common advice on programming exercises.
 3. Only pass primitives, tuples, dictionaries and lists as action parameters.
 4. Don't pass secret values (e.g. solutions) as action parameters.
 5. Test your exercises well with unit and manual tests.
+6. Organize your exercises according to their dependencies.
+7. Use the {meth}`entrypoint <pytmlib.decorators.entrypoint>` decorator to group and organize exercises.
