@@ -21,7 +21,7 @@ Now, open a new console window, navigate to the python project folder, activate 
 following command:
 
 ```shell
-flask run
+flask --debug run
 ```
 
 Open the _Python Tool Manager_ and create a new exercise. Start the preview mode, and you should see the following:
@@ -39,7 +39,7 @@ Now you can upload your first exercise.
 
 (input-fields)=
 
-## Input fields
+## Add Input Fields
 
 In order to create a dynamic exercise, we need to allow the user to enter data and send it to the exercise Python code.
 So replace the `app.py` file of your first exercise from the example above with the following code:
@@ -57,7 +57,7 @@ To control what method is executed after a click on the button, you need to pass
 `add_action`. You can also pass additional values using keyword parameters. See the next chapter for more information on
 passing parameters.
 
-## Dynamic Values
+## Use Dynamic Values
 
 An exercise with fixed values is not very interesting and fun to solve. Therefore, we need to introduce dynamic values:
 
@@ -68,11 +68,23 @@ As we can see in this slightly advanced version of the [second example exercise]
 now three additional parameters namely `m`,`b` and `y`. The values of these parameters are generated in the `start`
 method and passed as keyword arguments in the invocation of `add_action`.
 
-## Add a Score
+## Add the Score
 
 All what's left now is to send a grade to the connected {term}`LMS`:
 
-## Add a plot
+```{literalinclude} ./code/add-score.py
+```
+
+We can transmit a score by invoking the `add_score` method on the {class}`OutputBuilder` instance.
+
+```{warning}
+The invocation of `add_score` must happen inside the methods return statement.
+Otherwise, the grade will not be sent to the {term}`LMS`.
+```
+
+The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 the highest achievable grade.
+
+## Add a Plot
 
 ```{literalinclude} ./code/add-plot.py
 ```

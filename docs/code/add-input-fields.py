@@ -13,7 +13,7 @@ class Exercise(AbstractExercise):
         question = Latex(r'''
             What is the solution of the following equation?
             \newline
-            $2x + 4 = 10$
+            $$2x + 4 = 10$$
             ''')
         label = Latex(r'What is the value of $x$?')
 
