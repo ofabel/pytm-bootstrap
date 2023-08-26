@@ -50,7 +50,16 @@ class Exercise(AbstractExercise):
                         m_2=m_2,
                         b_2=b_2)
 
-    def solve(self, x, y, m_1, b_1, m_2, b_2):
+    def solve(self, **kwargs):
+        score = self.check(**kwargs)
+
+        return self.output \
+            .add_score(score) \
+            .add_paragraph(f'Your score: {score}') \
+            .add_action('Back to start', self.start)
+
+    @classmethod
+    def check(cls, x, y, m_1, b_1, m_2, b_2):
         x_correct = (b_2 - b_1) / (1 / m_1 - 1 / m_2)
         y_correct = x_correct / m_1 + b_1
 
@@ -59,16 +68,13 @@ class Exercise(AbstractExercise):
 
         score = 0.0
 
-        if x_diff < self._epsilon:
+        if x_diff < cls._epsilon:
             score += 0.5
 
-        if y_diff < self._epsilon:
+        if y_diff < cls._epsilon:
             score += 0.5
 
-        return self.output \
-            .add_score(score) \
-            .add_paragraph(f'Your score: {score}') \
-            .add_action('Back to start', self.start)
+        return score
 
 
 app = Exercise()

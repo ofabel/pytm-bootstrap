@@ -1,6 +1,6 @@
 from pytmlib import AbstractExercise
-from pytmlib import entrypoint
 from pytmlib import Latex
+from pytmlib import entrypoint
 
 
 class Exercise(AbstractExercise):
@@ -23,11 +23,15 @@ class Exercise(AbstractExercise):
             .add_action('Solve', self.solve)
 
     def solve(self, answer):
-        correct = 'right' if answer == 3 else 'wrong'
+        correct = 'right' if self.check(answer) else 'wrong'
 
         return self.output \
             .add_paragraph(f'Your answer {answer} is: {correct}') \
             .add_action('Back to start', self.start)
+
+    @classmethod
+    def check(cls, answer):
+        return answer == 3
 
 
 app = Exercise()

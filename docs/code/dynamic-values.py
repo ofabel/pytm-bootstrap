@@ -34,14 +34,19 @@ class Exercise(AbstractExercise):
                               step=self._epsilon) \
             .add_action('Solve', self.solve, m=m, b=b, y=y)
 
-    def solve(self, answer, m, b, y):
-        x = (y - b) / m
-        diff = abs(answer - x)
-        correct = 'right' if diff < self._epsilon else 'wrong'
+    def solve(self, answer, **kwargs):
+        correct = 'right' if self.check(answer, **kwargs) else 'wrong'
 
         return self.output \
             .add_paragraph(f'Your answer {answer} is: {correct}') \
             .add_action('Back to start', self.start)
+
+    @classmethod
+    def check(cls, answer, m, b, y):
+        x = (y - b) / m
+        diff = abs(answer - x)
+
+        return diff < cls._epsilon
 
 
 app = Exercise()

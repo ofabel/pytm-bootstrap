@@ -4,6 +4,7 @@
 
    installation
    quickstart
+   best-practice
    architecture
    reference
    glossary

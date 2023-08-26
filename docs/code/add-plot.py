@@ -58,7 +58,16 @@ class Exercise(AbstractExercise):
                               step=self._epsilon) \
             .add_action('Solve', self.solve, **triangle._asdict())
 
-    def solve(self, a_b, b_c, a_c, a_x, a_y, b_x, b_y, c_x, c_y):
+    def solve(self, **kwargs):
+        score = self.check(**kwargs)
+
+        return self.output \
+            .add_score(score) \
+            .add_paragraph(f'Your score: {score}') \
+            .add_action('Back to start', self.start)
+
+    @classmethod
+    def check(cls, a_b, b_c, a_c, a_x, a_y, b_x, b_y, c_x, c_y):
         scores = iter([0.0, 0.2, 0.5, 1.0])
         score = next(scores)
         edges = [
@@ -69,16 +78,13 @@ class Exercise(AbstractExercise):
 
         for points in edges:
             answer, *points = points
-            length = self._magnitude(*points)
+            length = cls._magnitude(*points)
             diff = abs(length - answer)
 
-            if diff < self._epsilon:
+            if diff < cls._epsilon:
                 score = next(scores)
 
-        return self.output \
-            .add_score(score) \
-            .add_paragraph(f'Your score: {score}') \
-            .add_action('Back to start', self.start)
+        return score
 
     @staticmethod
     def _get_figure(a_x, a_y, b_x, b_y, c_x, c_y):

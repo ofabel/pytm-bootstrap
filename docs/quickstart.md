@@ -83,6 +83,7 @@ Keep the following points in mind when passing values from one action to the nex
 * All parameters need to be serializeable.
 * Only pass primitives, tuples, dictonaries or lists.
 * Don't pass objects like e.g. matplotlib figures.
+* Don't pass secret values.
 ```
 
 ## Add the Score
