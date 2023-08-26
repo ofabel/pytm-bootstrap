@@ -8,7 +8,7 @@ After successful [installation of this library](/installation) you can start cre
 Python project folder (where your virtual environment folder is located) in your
 favourite IDE and create a new file named `app.py` with the following content:
 
-```{literalinclude} ./code/first-exercise.py
+```{literalinclude} ../examples/first-exercise/app.py
 ```
 
 The {meth}`version <pytmlib.abstract_exercise.AbstractExercise.version>` property defines the current version of your
@@ -32,7 +32,7 @@ Open the _Python Tool Manager_ and create a new exercise. Start the preview mode
 In order to upload your exercise, you need to create a [Dockerfile](https://docs.docker.com/engine/reference/builder/)
 at the same level as your `app.py` file is located and add the following content:
 
-```{literalinclude} ./code/Dockerfile
+```{literalinclude} ../examples/Dockerfile
 :language: Dockerfile
 ```
 
@@ -50,7 +50,7 @@ It's strongly recommended to store your changes in a {term}`VCS` like [Git](http
 In order to create a dynamic exercise, we need to allow the user to enter data and send it to the exercise Python code.
 So replace the `app.py` file of your first exercise from the example above with the following code:
 
-```{literalinclude} ./code/add-input-fields.py
+```{literalinclude} ../examples/input-fields/app.py
 ```
 
 The number field has the name `answer`. The same identifier occurs as parameter in the `solve` method. Field name and
@@ -69,7 +69,7 @@ parameters. See the [next chapter](#dynamic-values) for more information on pass
 
 An exercise with fixed values is not very interesting and fun to solve. Therefore, we need to introduce dynamic values:
 
-```{literalinclude} ./code/dynamic-values.py
+```{literalinclude} ../examples/dynamic-values/app.py
 ```
 
 As we can see in this slightly advanced version of the [second example exercise](#input-fields), the `solve` method has
@@ -90,7 +90,7 @@ Keep the following points in mind when passing values from one action to the nex
 
 All what's left now is to send a grade to the connected {term}`LMS`:
 
-```{literalinclude} ./code/add-score.py
+```{literalinclude} ../examples/score/app.py
 ```
 
 We can transmit a score by invoking the {meth}`add_score <pytmlib.output.builder.OutputBuilder.add_score>` method on the
@@ -107,7 +107,7 @@ The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 
 
 ## Add a Plot
 
-```{literalinclude} ./code/add-plot.py
+```{literalinclude} ../examples/plot/app.py
 ```
 
 ## Write Tests
@@ -117,8 +117,7 @@ uses [pytest](https://docs.pytest.org/) because of its simplicity. To install th
 with [Pip](https://pip.pypa.io/en/stable/), create a new text file with the name `requirements-test.txt` next to
 the `venv` folder and add the following line:
 
-```text
-pytest>=7.4
+```{literalinclude} ../examples/requirements-test.txt
 ```
 
 Now, open a new console window, activate the virtual environment and execute the following command:
@@ -130,7 +129,7 @@ pip install -r requirements-test.txt
 To write a first unit test, create a new file named `test_app.py` next to the `venv` folder. We will write a test for
 the [previous example exercise](#add-a-plot):
 
-```{literalinclude} ./code/test.py
+```{literalinclude} ../examples/plot/test_app.py
 ```
 
 To execute the tests, activate the virtual environment in a new console window and execute the following command:
