@@ -37,14 +37,26 @@ class AbstractExercise(abc.ABC):
     @property
     @abc.abstractmethod
     def version(self) -> str:
+        """Get the `semantic version <https://semver.org/spec/v2.0.0.html>`_ of this exercise.
+
+        :return: The version of this exercise.
+        """
         raise NotImplemented
 
     @property
     def output(self) -> Output:
+        """Get a new output builder instance.
+
+        :return: A new instance of the output builder.
+        """
         return self._context.output
 
     @abc.abstractmethod
     def start(self) -> Output:
+        """This is the main entrypoint.
+
+        :return: The output of this exercise action.
+        """
         pass
 
     def get_entrypoints(self) -> Iterable[Action]:

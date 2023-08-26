@@ -3,6 +3,9 @@ Glossary
 
 .. glossary::
 
+   Docker
+      Operating system level virtualization software.
+
    LMS
       `Learning Management System <https://en.wikipedia.org/wiki/Learning_management_system>`_ (e.g. `Moodle <https://www.moogle.org>`_)
 

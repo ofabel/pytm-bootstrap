@@ -11,11 +11,12 @@ favourite IDE and create a new file named `app.py` with the following content:
 ```{literalinclude} ./code/first-exercise.py
 ```
 
-The `version` property defines the current version of your exercise. Use semantic versioning according to
-the [specification](https://semver.org/spec/v2.0.0.html).
+The {meth}`version <pytmlib.abstract_exercise.AbstractExercise.version>` property defines the current version of your
+exercise. Use semantic versioning according to the [specification](https://semver.org/spec/v2.0.0.html).
 
-The `start` method with the `entrypoint` decorator defines the entrypoint of your exercise. This method will be
-executed, when your exercise starts.
+The {meth}`start <pytmlib.abstract_exercise.AbstractExercise.start>` method with the
+{meth}`entrypoint <pytmlib.decorators.entrypoint>` decorator defines the entrypoint of your exercise. This method will
+be executed, when your exercise starts.
 
 Now, open a new console window, navigate to the python project folder, activate the virtual environment and execute the
 following command:
@@ -59,8 +60,8 @@ invocation and is represented by a blue button in the user interface:
 ![add input fields exercise in preview mode](./graphs/add-input-fields-exercise.png)
 
 To control what method is executed after a click on the button, you need to pass a method reference in the invocation of
-`add_action`. You can also pass additional values using keyword parameters. See the next chapter for more information on
-passing parameters.
+{meth}`add_action <pytmlib.output.builder.OutputBuilder.add_action>`. You can also pass additional values using keyword
+parameters. See the next chapter for more information on passing parameters.
 
 ## Use Dynamic Values
 
@@ -71,7 +72,8 @@ An exercise with fixed values is not very interesting and fun to solve. Therefor
 
 As we can see in this slightly advanced version of the [second example exercise](#input-fields), the `solve` method has
 now three additional parameters namely `m`,`b` and `y`. The values of these parameters are generated in the `start`
-method and passed as keyword arguments in the invocation of `add_action`.
+method and passed as keyword arguments in the invocation of
+{meth}`add_action <pytmlib.output.builder.OutputBuilder.add_action>`.
 
 ## Add the Score
 
@@ -80,11 +82,12 @@ All what's left now is to send a grade to the connected {term}`LMS`:
 ```{literalinclude} ./code/add-score.py
 ```
 
-We can transmit a score by invoking the `add_score` method on the {class}`OutputBuilder` instance.
+We can transmit a score by invoking the {meth}`add_score <pytmlib.output.builder.OutputBuilder.add_score>` method on the
+{class}`OutputBuilder <pytmlib.output.builder.OutputBuilder>` instance.
 
 ```{warning}
-The invocation of `add_score` must happen inside the methods return statement.
-Otherwise, the grade will not be sent to the {term}`LMS`.
+The invocation of {meth}`add_score <pytmlib.output.builder.OutputBuilder.add_score>` must happen inside the methods 
+return statement. Otherwise, the grade will not be sent to the {term}`LMS`.
 ```
 
 The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 the highest achievable grade.

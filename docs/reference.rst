@@ -3,4 +3,8 @@ Reference
 
 .. autoclass:: pytmlib.output.builder.OutputBuilder
    :members:
-   :noindex:
+
+.. autoclass:: pytmlib.abstract_exercise.AbstractExercise
+   :members:
+
+.. autodecorator:: pytmlib.decorators.entrypoint

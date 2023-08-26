@@ -69,7 +69,7 @@ class Exercise(AbstractExercise):
 
         for points in edges:
             answer, *points = points
-            length = self._length(*points)
+            length = self._magnitude(*points)
             diff = abs(length - answer)
 
             if diff < self._epsilon:
@@ -122,7 +122,7 @@ class Exercise(AbstractExercise):
         return figure
 
     @staticmethod
-    def _length(x0, y0, x1, y1):
+    def _magnitude(x0, y0, x1, y1):
         x = x1 - x0
         y = y1 - y0
 
