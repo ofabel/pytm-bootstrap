@@ -1,6 +1,6 @@
 /venv/
 /build/
 /dist/
-/docs/graphs/*.svg
+/docs/graphs/*.mmd.svg
 __pycache__
 *.egg-info

@@ -33,6 +33,7 @@ source_suffix = {
     '.md': 'markdown'
 }
 
+html_logo = './graphs/logo.png'
 html_theme_options = {
     'fixed_sidebar': True
 }
