@@ -61,7 +61,9 @@ invocation and is represented by a blue button in the user interface:
 
 To control what method is executed after a click on the button, you need to pass a method reference in the invocation of
 {meth}`add_action <pytmlib.output.builder.OutputBuilder.add_action>`. You can also pass additional values using keyword
-parameters. See the next chapter for more information on passing parameters.
+parameters. See the [next chapter](#dynamic-values) for more information on passing parameters.
+
+(dynamic-values)=
 
 ## Use Dynamic Values
 
@@ -74,6 +76,14 @@ As we can see in this slightly advanced version of the [second example exercise]
 now three additional parameters namely `m`,`b` and `y`. The values of these parameters are generated in the `start`
 method and passed as keyword arguments in the invocation of
 {meth}`add_action <pytmlib.output.builder.OutputBuilder.add_action>`.
+
+```{warning}
+Keep the following points in mind when passing values from one action to the next:
+
+* All parameters need to be serializeable.
+* Only pass primitives, tuples, dictonaries or lists.
+* Don't pass objects like e.g. matplotlib figures.
+```
 
 ## Add the Score
 
