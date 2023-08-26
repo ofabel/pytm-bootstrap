@@ -1,0 +1,21 @@
+sequenceDiagram
+    participant exercise as Exercise
+    participant api as API
+    participant lms as LMS
+    participant client as Client
+
+    client ->> lms: start exercise
+    lms ->> api: start exercise
+    api ->>+ exercise: start exercise
+    Note over exercise: run entrypoint
+    exercise ->>- api: Output, Data, HMAC
+    api ->>+ client: Output, Data, HMAC
+    Note over client: solve exercise
+    client ->>- api: Input, Data, HMAC
+    api ->>+ exercise: Input, Data, HMAC
+    Note over exercise: check answer
+    exercise -->> api: submit score
+    api -->> lms: submit score
+    exercise ->>- api: Output, Data, HMAC
+    api ->> client: Output, Data, HMAC
+    client ->> lms: close exercise

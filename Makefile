@@ -15,7 +15,7 @@ publish-packages: build-packages
 clean-docs:
 	rm -rf dist/docs
 docs/graphs/%.mmd.svg: docs/graphs/%.mmd
-	mmdc --input $^ --output "$@" --backgroundColor transparent --pdfFit --width 800 --height 800 --theme neutral
+	mmdc --input $^ --output "$@" --backgroundColor transparent --pdfFit --width 800 --height 800
 build-docs: clean-docs $(MMD_SVG_FILES)
 	source venv/bin/activate && sphinx-build -b html docs dist/docs
 publish-docs: build-docs
