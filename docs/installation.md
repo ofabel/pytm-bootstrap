@@ -57,7 +57,7 @@ pip install pytmlib
 Create or edit the `requirements.txt` file and add the following line:
 
 ```text
-pytmlib>=1.0.0
+pytmlib>=1.0
 ```
 
 To install the requirements, open a new console window, activate the virtual environment and execute the following
