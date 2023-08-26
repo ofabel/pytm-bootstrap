@@ -37,6 +37,11 @@ at the same level as your `app.py` file is located and add the following content
 
 Now you can upload your first exercise.
 
+```{warning}
+Be aware, that the Python Tool Manager doesn't store old versions of your code. You are responsible to create backups.
+It's strongly recommended to store your changes in a {term}`VCS` like [Git](https://docs.github.com/en/get-started/getting-started-with-git).
+```
+
 (input-fields)=
 
 ## Add Input Fields

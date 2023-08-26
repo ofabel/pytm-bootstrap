@@ -10,6 +10,7 @@
    Changes </changes>
    License </license>
    GitHub <https://www.github.com/ofabel/pytm-bootstrap>
+   PyPI <https://pypi.org/project/pytmlib/>
 
 Python Tool Manager
 ===================
