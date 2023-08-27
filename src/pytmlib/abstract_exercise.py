@@ -1,9 +1,12 @@
 import abc
 import logging
 import os
+import sys
 import uuid
 from typing import Iterable
 from typing import Tuple
+
+from flask import Flask
 
 from .context import Context
 from .create_app import create_app
@@ -26,13 +29,17 @@ class AbstractExercise(abc.ABC):
 
         exercise._context = context
 
-        if unique_id is None:
+        app: Flask = create_app(context, static_folder_path)
+
+        skip_warnings = app.debug or 'unittest' in sys.modules.keys()
+
+        if not skip_warnings and unique_id is None:
             logging.warning('missing %s environment variable', PYTM_UID_ENV)
 
-        if fallback:
+        if not skip_warnings and fallback:
             logging.warning('missing %s environment variable', PYTM_SECRET_ENV)
 
-        return create_app(context, static_folder_path)
+        return app
 
     @property
     @abc.abstractmethod

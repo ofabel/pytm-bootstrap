@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Get application secret from `PYTM_SECRET` environment variable.
 * Get exercise ID from `PYTM_UID` environment variable.
 * Archive contents from symbolic links to files.
+* Hide warnings about missing secrets during unit tests and in debug mode.
 
 ## [1.0.0] - 2023-06-18
 
