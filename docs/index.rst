@@ -4,6 +4,7 @@
 
    installation
    quickstart
+   users-guide
    best-practice
    architecture
    reference
