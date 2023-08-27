@@ -17,8 +17,7 @@ install: init
 	test -d examples/venv && exit 0 || \
 		python -m venv examples/venv && \
 		source examples/venv/bin/activate && \
-		pip install -r examples/requirements.txt && \
-		pip install -r examples/requirements-test.txt
+		pip install -r examples/requirements.txt
 
 clean-packages:
 	hatch clean

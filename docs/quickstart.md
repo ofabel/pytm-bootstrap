@@ -115,41 +115,26 @@ The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 
 
 ## Write Tests
 
-In order to write unit tests, we have to install a unit test framework. This guide
-uses [pytest](https://docs.pytest.org/) because of its simplicity. To install the framework
-with [Pip](https://pip.pypa.io/en/stable/), create a new text file with the name `requirements-test.txt` next to
-the `venv` folder and add the following line:
+This guide uses [unittest](https://docs.python.org/3/library/unittest.html), the built-in unit test framework of the
+Python standard library, because of its simplicity. This way, we don't have to introduce any additional dependency to
+the project, and we can start writing unit tests right away. To write a first unit test, create a new file
+named `test.py` next to the `venv` folder. We will write a test for the [previous example exercise](#add-a-plot):
 
-```{literalinclude} ../examples/requirements-test.txt
-```
-
-Now, open a new console window, activate the virtual environment and execute the following command:
-
-```shell
-pip install -r requirements-test.txt
-```
-
-To write a first unit test, create a new file named `test_app.py` next to the `venv` folder. We will write a test for
-the [previous example exercise](#add-a-plot):
-
-```{literalinclude} ../examples/plot/test_app.py
+```{literalinclude} ../examples/plot/test.py
 ```
 
 To execute the tests, activate the virtual environment in a new console window and execute the following command:
 
 ```shell
-pytest
+python -m unittest
 ```
 
 You should observe the following output:
 
 ```text
-======================= test session starts ========================
-platform linux -- Python 3.11.3, pytest-7.4.0, pluggy-1.2.0
-rootdir: /home/sweet/pytm-example/plot
-collected 5 items                                                  
+.....
+--------------------------------------------------------------------
+Ran 5 tests in 0.000s
 
-test_app.py .....                                            [100%]
-
-======================== 5 passed in 0.48s =========================
+OK
 ```

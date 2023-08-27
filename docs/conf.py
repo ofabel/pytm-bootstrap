@@ -37,14 +37,18 @@ html_favicon = './graphs/favicon.png'
 html_logo = './graphs/logo.png'
 html_theme_options = {
     'fixed_sidebar': True,
+    'show_powered_by': False,
     'description': config.get('project').get('description'),
     'extra_nav_links': {
-        'GitHub': 'https://www.github.com/ofabel/pytm-bootstrap',
-        'PyPI': 'https://pypi.org/project/pytmlib'
+        'Source Code': 'https://www.github.com/ofabel/pytm-bootstrap',
+        'Bugtracker': 'https://www.github.com/ofabel/pytm-bootstrap/issues',
+        'Releases': 'https://pypi.org/project/pytmlib'
 
     }
 }
 html_copy_source = False
+html_show_copyright = False
+html_show_sphinx = False
 exclude_patterns = [
     '**/_**'
 ]
