@@ -27,3 +27,5 @@ client side manipulation of the data. Furthermore, input and output information 
 backend.
 
 ![Overview](graphs/communication.mmd.svg)
+
+## Preview and Upload

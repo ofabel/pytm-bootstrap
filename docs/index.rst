@@ -10,8 +10,6 @@
    glossary
    Changes </changes>
    License </license>
-   GitHub <https://www.github.com/ofabel/pytm-bootstrap>
-   PyPI <https://pypi.org/project/pytmlib/>
 
 Python Tool Manager
 ===================
@@ -39,7 +37,7 @@ Features
 * Make full use of the power of Python.
 
 Where to Start
-==============
+--------------
 
 First, you need to setup a new Python project and :doc:`install the library </installation>` as a dependency. After
 successful installation, you can consider reading the :doc:`quickstart guide </quickstart>` and create

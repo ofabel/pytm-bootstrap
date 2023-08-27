@@ -33,11 +33,18 @@ source_suffix = {
     '.md': 'markdown'
 }
 
+html_favicon = './graphs/favicon.png'
 html_logo = './graphs/logo.png'
 html_theme_options = {
-    'fixed_sidebar': True
+    'fixed_sidebar': True,
+    'description': config.get('project').get('description'),
+    'extra_nav_links': {
+        'GitHub': 'https://www.github.com/ofabel/pytm-bootstrap',
+        'PyPI': 'https://pypi.org/project/pytmlib'
+
+    }
 }
-html_show_sourcelink = False
+html_copy_source = False
 exclude_patterns = [
     '**/_**'
 ]

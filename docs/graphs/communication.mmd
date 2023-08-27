@@ -1,6 +1,8 @@
 sequenceDiagram
+    box Python Tool Manager
     participant exercise as Exercise
     participant api as API
+    end
     participant lms as LMS
     participant client as Client
 
@@ -9,13 +11,13 @@ sequenceDiagram
     api ->>+ exercise: start exercise
     Note over exercise: run entrypoint
     exercise ->>- api: Output, Data, HMAC
-    api ->>+ client: Output, Data, HMAC
+    api ->>+ client: HTML
     Note over client: solve exercise
-    client ->>- api: Input, Data, HMAC
+    client ->>- api: Form Data
     api ->>+ exercise: Input, Data, HMAC
     Note over exercise: check answer
     exercise -->> api: submit score
     api -->> lms: submit score
     exercise ->>- api: Output, Data, HMAC
-    api ->> client: Output, Data, HMAC
+    api ->> client: HTML
     client ->> lms: close exercise
