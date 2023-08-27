@@ -36,7 +36,6 @@ source_suffix = {
 html_favicon = './graphs/favicon.png'
 html_logo = './graphs/logo.png'
 html_theme_options = {
-    'fixed_sidebar': True,
     'show_powered_by': False,
     'description': config.get('project').get('description'),
     'extra_nav_links': {

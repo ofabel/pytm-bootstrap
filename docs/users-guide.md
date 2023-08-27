@@ -89,7 +89,7 @@ Keep the following points in mind when passing values from one action to the nex
 * Don't pass secret values.
 ```
 
-## Add the Score
+## Submit the Score
 
 All what's left now is to send a grade to the connected {term}`LMS`:
 
@@ -108,9 +108,14 @@ The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 
 
 (add-a-plot)=
 
-## Add a Plot
+## Display a Plot
 
 ```{literalinclude} ../examples/plot/app.py
+```
+
+## Use Entrypoints
+
+```{literalinclude} ../examples/entrypoints/app.py
 ```
 
 ## Write Tests

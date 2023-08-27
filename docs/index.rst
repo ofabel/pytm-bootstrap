@@ -2,8 +2,8 @@
    :hidden:
    :maxdepth: 2
 
-   installation
    quickstart
+   installation
    users-guide
    best-practice
    architecture
@@ -41,9 +41,9 @@ Where to Start
 --------------
 
 First, you need to setup a new Python project and :doc:`install the library </installation>` as a dependency. After
-successful installation, you can consider reading the :doc:`quickstart guide </quickstart>` and create
-your :ref:`first exercise <first-exercise>`. If you need further information, checkout the :doc:`reference </reference>`
-or :doc:`architecture </architecture>` chapter.
+successful installation, you can consider reading the :doc:`user's guide </users-guide>` and create
+your :ref:`first exercise <first-exercise>` or check out the :doc:`quickstart </quickstart>`. If you need further
+information, checkout the :doc:`reference </reference>` or :doc:`architecture </architecture>` chapter.
 
 License
 -------
