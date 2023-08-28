@@ -5,7 +5,11 @@ ENTRYPOINT_TITLE = '__pytm_entrypoint_title__'
 
 
 def entrypoint(func_or_title):
-    """Marks an exercise action as entrypoint."""
+    """
+    Marks an exercise action as entrypoint.
+
+    :param func_or_title: Pass an optional title for the entrypoint.
+    """
     if isinstance(func_or_title, str):
         def wrapper(func):
             setattr(func, ENTRYPOINT_MARKER, True)

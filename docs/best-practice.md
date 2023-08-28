@@ -9,4 +9,4 @@ This page should give you some common advice on programming exercises.
 4. Don't pass secret values (e.g. solutions) as action parameters.
 5. Test your exercises well with unit and manual tests.
 6. Organize your exercises according to their dependencies.
-7. Use the {meth}`entrypoint <pytmlib.decorators.entrypoint>` decorator to group and organize exercises.
+7. Use the {meth}`entrypoint <pytmlib.entrypoint>` decorator to group and organize exercises.

@@ -1,10 +1,13 @@
 Reference
 =========
 
+.. autoclass:: pytmlib.Output
+   :members:
+
 .. autoclass:: pytmlib.output.builder.OutputBuilder
    :members:
 
-.. autoclass:: pytmlib.abstract_exercise.AbstractExercise
+.. autoclass:: pytmlib.AbstractExercise
    :members:
 
-.. autodecorator:: pytmlib.decorators.entrypoint
+.. autodecorator:: pytmlib.entrypoint

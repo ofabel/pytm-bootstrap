@@ -14,11 +14,11 @@ favourite {term}`IDE` and create a new file named `app.py` with the following co
 ```{literalinclude} ../examples/first-exercise/app.py
 ```
 
-The {meth}`version <pytmlib.abstract_exercise.AbstractExercise.version>` property defines the current version of your
+The {meth}`version <pytmlib.AbstractExercise.version>` property defines the current version of your
 exercise. Use semantic versioning according to the [specification](https://semver.org/spec/v2.0.0.html).
 
-The {meth}`start <pytmlib.abstract_exercise.AbstractExercise.start>` method with the
-{meth}`entrypoint <pytmlib.decorators.entrypoint>` decorator defines the entrypoint of your exercise. This method will
+The {meth}`start <pytmlib.AbstractExercise.start>` method with the
+{meth}`entrypoint <pytmlib.entrypoint>` decorator defines the entrypoint of your exercise. This method will
 be executed, when your exercise starts.
 
 Now, open a new console window, navigate to the python project folder, activate the virtual environment and execute the
@@ -115,7 +115,42 @@ The score is a float value between 0.0 and 1.0. Where 0.0 is the lowest and 1.0 
 
 ## Use Entrypoints
 
+Entrypoints allow you to create multiple exercises inside the same exercise class. This enables you to share code
+between exercises. The following example illustrates the use of multiple
+{meth}`entrypoint <pytmlib.entrypoint>` decorators:
+
 ```{literalinclude} ../examples/entrypoints/app.py
+```
+
+You can switch between the entrypoints in the preview mode:
+
+![Visible entrypoints in the preview mode.](./graphs/entrypoints-preview-mode.png)
+
+The content selection dialog in the {term}`LMS` displays the available entrypoints:
+
+![Entrypoint selection inside LMS.](./graphs/entrypoints-content-selection.png)
+
+Add a doc string to an entrypoint method to give some additional description of the exercise:
+
+```python
+@entrypoint
+def diameter(self):
+    """
+    Calculate the diameter of a circle.
+    """
+    ...
+```
+
+You can also change the title of an entrypoint by passing a parameter:
+
+```python
+@entrypoint('Bar')
+def foo(self):
+    ...
+```
+
+```{warning}
+Don't ever change the name of an entrypoint, which is already in use. Otherwise the {term}`LMS` will loose access to it.
 ```
 
 ## Write Tests
