@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Installation &#8212; pytmlib 1.1.0.dev20 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2a7f933b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="User’s Guide" href="users-guide.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
+<p>This page should give you basic information on how to install this library.</p>
+<section id="python-version">
+<h2>Python Version<a class="headerlink" href="#python-version" title="Permalink to this heading">¶</a></h2>
+<p>It’s recommended to use the latest version of <a class="reference external" href="https://www.python.org/">Python</a>. The minimal supported version is 3.8.</p>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h2>
+<p>This library is dependant of the following packages:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/Flask/">Flask</a> is a simple HTTP framework.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/Flask-Cors/">Flask-Cors</a> to support cross-origin requests.</p></li>
+<li><p><a class="reference external" href="https://pypi.org/project/matplotlib/">matplotlib</a> to render simple figures, graphs and plots.</p></li>
+</ul>
+</section>
+<section id="virtual-environments">
+<h2>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this heading">¶</a></h2>
+<p>It’s recommended to create and use a <a class="reference external" href="https://docs.python.org/3/library/venv.html">virtual environment</a> when
+programming an exercise with this library. You can create a virtual environment with the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</pre></div>
+</div>
+<p>The advantage of a virtual environment is, you don’t need to install your site packages in the global scope.
+Therefore, you can omit unwanted site effects with other applications and Python projects on your system.
+In order to use an existing virtual environment, you need to activate it first:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre></div>
+</div>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
+<p>This library has the following requirements:</p>
+<ul class="simple">
+<li><p>Python, greater or equal version 3.8.</p></li>
+<li><p>A plain text editor (<a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>
+or <a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a> is recommended)</p></li>
+<li><p>Bash compatible terminal (e.g. <a class="reference external" href="https://gitforwindows.org/">Git Bash</a> or <a class="reference external" href="https://www.cygwin.com">Cygwin</a> on Windows)</p></li>
+<li><p>The use of <a class="reference external" href="https://git-scm.com/">Git</a> as a <a class="reference external" href="https://en.wikipedia.org/wiki/Version_control">version control system</a> is
+highly recommended.</p></li>
+<li><p>Access to the Python Tool Manager.</p></li>
+</ul>
+</section>
+<section id="install-with-pip">
+<h2>Install with Pip<a class="headerlink" href="#install-with-pip" title="Permalink to this heading">¶</a></h2>
+<p>To install the library with <a class="reference external" href="https://pip.pypa.io/en/stable/">Pip</a>, activate the virtual environment and execute the
+following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pytmlib
+</pre></div>
+</div>
+<section id="using-a-requirements-txt-file">
+<h3>Using a requirements.txt File<a class="headerlink" href="#using-a-requirements-txt-file" title="Permalink to this heading">¶</a></h3>
+<p>Create or edit the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file and add the following line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pytmlib&gt;=1.0
+</pre></div>
+</div>
+<p>To install the requirements, open a new console window, activate the virtual environment and execute the following
+command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">pytmlib</a></h1>
+
+
+
+<p class="blurb">This is the base library for the Python Tool Manager.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-version">Python Version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-environments">Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-with-pip">Install with Pip</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="users-guide.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best-practice.html">Best Practice</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://www.github.com/ofabel/pytm-bootstrap">Source Code</a></li>
+    
+    <li class="toctree-l1"><a href="https://www.github.com/ofabel/pytm-bootstrap/issues">Bugtracker</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pytmlib">Releases</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="quickstart.html" title="previous chapter">Quickstart</a></li>
+      <li>Next: <a href="users-guide.html" title="next chapter">User’s Guide</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

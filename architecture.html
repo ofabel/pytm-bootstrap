@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Architecture &#8212; pytmlib 1.1.0.dev20 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2a7f933b"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <link rel="icon" href="_static/favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Best Practice" href="best-practice.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading">¶</a></h1>
+<p>This chapter explains how the Python Tool Manager works under the hood.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>The following picture should give you a brief overview on the data flow and the participants of the <em>Python Tool
+Manager</em> in action.</p>
+<p><img alt="Overview" src="_images/overview.mmd.svg" /></p>
+<p>The user interacts with the exercise on the <a class="reference internal" href="glossary.html#term-LMS"><span class="xref std std-term">LMS</span></a> platform. The exercise communicates with the <em>Python Tool
+Manager</em> over the <a class="reference internal" href="glossary.html#term-LTI"><span class="xref std std-term">LTI</span></a> protocol, which handles access control and guarantees the authenticity of the data.
+<a class="reference internal" href="glossary.html#term-LMS"><span class="xref std std-term">LMS</span></a> and <em>Python Tool Manager</em> can run on different servers. Only server to server communication using HTTP or
+HTTPS (which is strongly recommended) is mandatory.</p>
+<p>The Python code of the exercises managed by the <em>Python Tool Manager</em> is stored in a database and runs inside a
+<a class="reference internal" href="glossary.html#term-Docker"><span class="xref std std-term">Docker</span></a> container. This provides an additional security layer and gives maximum flexibility to the programmer of
+the exercise. The pytm library handles the communication between the exercise and the <em>Python Tool Manager</em> backend.</p>
+</section>
+<section id="communication">
+<h2>Communication<a class="headerlink" href="#communication" title="Permalink to this heading">¶</a></h2>
+<p>Exercise classes are stateless. Any stateful information has to be serialized and transferred to the client and back to
+the server. Besides the serialized data, a
+corresponding <a class="reference external" href="https://en.wikipedia.org/wiki/HMAC">hash-based message authentication code</a> is transmitted. This prevents
+client side manipulation of the data. Furthermore, input and output information is transferred between client and
+backend.</p>
+<p><img alt="Overview" src="_images/communication.mmd.svg" /></p>
+</section>
+<section id="preview-and-upload">
+<h2>Preview and Upload<a class="headerlink" href="#preview-and-upload" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="index.html">pytmlib</a></h1>
+
+
+
+<p class="blurb">This is the base library for the Python Tool Manager.</p>
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="users-guide.html">User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="best-practice.html">Best Practice</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#communication">Communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preview-and-upload">Preview and Upload</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+
+<hr />
+<ul>
+    
+    <li class="toctree-l1"><a href="https://www.github.com/ofabel/pytm-bootstrap">Source Code</a></li>
+    
+    <li class="toctree-l1"><a href="https://www.github.com/ofabel/pytm-bootstrap/issues">Bugtracker</a></li>
+    
+    <li class="toctree-l1"><a href="https://pypi.org/project/pytmlib">Releases</a></li>
+    
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="best-practice.html" title="previous chapter">Best Practice</a></li>
+      <li>Next: <a href="reference.html" title="next chapter">Reference</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
